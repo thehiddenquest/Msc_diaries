@@ -94,6 +94,12 @@ int main()
 	
 	printf("\nEnter the no. of edges in the graph: ");
 	scanf("%d",&edges);
+	int maxedge = vertices * (vertices - 1);
+	if(edges > maxedge)
+	{
+		printf("\nNumber of edge exceeds the maximum possible combinations!!");
+		return 0;
+	}
 	for(i = 0; i < edges; i++)
 	{
 		printf("Enter source vertex, destination vertex and weight for edge %d: ",i+1);
