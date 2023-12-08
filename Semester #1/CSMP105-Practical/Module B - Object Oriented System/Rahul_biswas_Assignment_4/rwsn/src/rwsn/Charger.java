@@ -37,10 +37,27 @@ public class Charger implements DisplayObject {
 //			System.out.println("Sensor id requesting for charge: "+ msgR.id);
 		}
 	}
-	public void charge(Sensor object)
+	public synchronized void charge(Sensor object)
 	{
-		double chargingEnergy = Parameters.InitialEnergy;
-		object.charging(chargingEnergy);
+		double chargingEnergy = 0.0;
+		while(chargingEnergy< Parameters.InitialEnergy)
+		{
+			chargingEnergy += 1.0;
+			if(chargingEnergy>Parameters.InitialEnergy)
+			{
+				chargingEnergy = Parameters.InitialEnergy;
+			}
+
+	        // Add a delay (adjust the sleep duration based on your requirements)
+	        try {
+	            Thread.sleep(500); // 100 milliseconds delay (adjust as needed)
+	        } catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+			object.charging(chargingEnergy);
+		}
+		object.stopCharging();
+//        messages.remove(0);
 	}
 	public int getId() {
 		return id;

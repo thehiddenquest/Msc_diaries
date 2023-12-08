@@ -19,6 +19,7 @@ public class Sensor extends Thread implements DisplayObject {
 	private BaseStation bs;
 	private double energyDepletionRate;
 	private double remainingEnergy;
+	private boolean charging = false;
 	
 	public Sensor(int x, int y, int id, SensorTypes type, BaseStation bs) {
 		this.x=x;
@@ -53,32 +54,54 @@ public class Sensor extends Thread implements DisplayObject {
 	@Override
 	public void run() {
 		while(true) {
-			if(live) {
-				sendData();
-				remainingEnergy -= energyDepletionRate;
-				if(remainingEnergy<0)
-					remainingEnergy=0;
-				if(remainingEnergy<Parameters.ThresholdEnergy && !chargingRequestSend) {
-					Message<Double> msg = new Message<Double>(id, MessageTypes.RECHARGE, remainingEnergy);
-					bs.receiveMessage(msg);
-					chargingRequestSend=true;
-				}else if(remainingEnergy==0) {
-					live=false;
-				}
-				if(remainingEnergy == Parameters.InitialEnergy)
-				{
-					chargingRequestSend = false;
-				}
-			}
 			try {
+				if(live) {
+					sendData();
+					remainingEnergy -= energyDepletionRate;
+					if(remainingEnergy<0)
+						remainingEnergy=0;
+					if(remainingEnergy<Parameters.ThresholdEnergy && !chargingRequestSend) {
+						Message<Double> msg = new Message<Double>(id, MessageTypes.RECHARGE, remainingEnergy);
+						bs.receiveMessage(msg);
+						chargingRequestSend=true;
+						startCharging();
+	
+					}else if(remainingEnergy==0) {
+						live=false;
+					}
+					if(remainingEnergy == Parameters.InitialEnergy)
+					{
+						chargingRequestSend = false;
+					}
+				}
+			
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
-	
+
+    public synchronized void startCharging() throws InterruptedException {
+        while (charging) {
+            wait();
+        }
+        charging = true;
+    }
+
+    public synchronized void stopCharging() {
+    	
+        charging = false;
+        notify();
+    }
+//	public synchronized void startCharging() throws InterruptedException {
+//	    while (charging) {
+//	        wait();
+//	    }
+//	    charging = true;
+//	    notify();  // Notify after setting charging to true
+//	}
+
 	public int getID() {
 		return id;
 	}
