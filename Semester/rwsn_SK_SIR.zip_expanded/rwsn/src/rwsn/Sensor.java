@@ -14,11 +14,11 @@ public class Sensor extends Thread implements DisplayObject {
 	private boolean live = true;
 	private boolean chargingRequestSend=false;
 	private Image img;
-	private int x,y,id;
+	int x,y,id;
 	private SensorTypes type;
 	private BaseStation bs;
 	private double energyDepletionRate;
-	private double remainingEnergy;
+	double remainingEnergy;
 	private boolean charging = false;
 	
 	public Sensor(int x, int y, int id, SensorTypes type, BaseStation bs) {
@@ -64,7 +64,11 @@ public class Sensor extends Thread implements DisplayObject {
 						Message<Double> msg = new Message<Double>(id, MessageTypes.RECHARGE, remainingEnergy);
 						bs.receiveMessage(msg);
 						chargingRequestSend=true;
-						startCharging();
+						synchronized (this) {
+							wait();
+						}
+						
+						//startCharging();
 	
 					}else if(remainingEnergy==0) {
 						live=false;
@@ -82,25 +86,6 @@ public class Sensor extends Thread implements DisplayObject {
 		}
 	}
 
-    public synchronized void startCharging() throws InterruptedException {
-        while (charging) {
-            wait();
-        }
-        charging = true;
-    }
-
-    public synchronized void stopCharging() {
-    	
-        charging = false;
-        notify();
-    }
-//	public synchronized void startCharging() throws InterruptedException {
-//	    while (charging) {
-//	        wait();
-//	    }
-//	    charging = true;
-//	    notify();  // Notify after setting charging to true
-//	}
 
 	public int getID() {
 		return id;
@@ -122,7 +107,7 @@ public class Sensor extends Thread implements DisplayObject {
 		}else {
 			g.setColor(Color.BLACK);
 		}
-		g.drawString(id+","+String.format("%.2f",remainingEnergy), x, y+5);
+		g.drawString("["+id+","+String.format("%.2f",remainingEnergy)+","+type+"]", x, y+5);
 		g.setColor(Color.BLACK);
 	}
 

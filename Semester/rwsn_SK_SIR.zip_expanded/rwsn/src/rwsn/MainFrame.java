@@ -44,7 +44,7 @@ public class MainFrame extends JFrame{
 		for(i=0;i<nc;i++) {
 			Charger c = getCharger(grids, i, bs);
 			canvas.chargers.add(c);
-			bs.chargers.put(c.getId(), c);
+			bs.chargers.put(c.getID(), c);
 		}
 		for(i=0;i<ns;i++) {	
 			Sensor s = getSensor(grids, i, bs);
@@ -79,7 +79,7 @@ public class MainFrame extends JFrame{
 		while(true) {			
 			f.canvas.repaint();
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(200);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
