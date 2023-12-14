@@ -38,33 +38,34 @@ public class Producer extends Thread implements DisplayObject {
 	public void run() {
 
 		while (true) {
-
-			try {
+			synchronized (this) {
+				try {
 //			if(!foods.isempty())
 //			{
 //				wait();
 //			}
-				int delay = (int) (Math.random() * 10000);
-				Thread.sleep(delay);
-				produce();
-			} catch (Exception E) {
-				System.out.println(E);
-			}
+					while (foods.isFull()) {
+						System.out.println("Producer is waiting");
+						this.wait();
+					}
+					int delay = (int) (Math.random() * 10000);
+					Thread.sleep(delay);
+					produce();
+				} catch (Exception E) {
+					System.out.println(E);
+				}
 //		foods.notifyAll();
+			}
 		}
 	}
 
-	public void produce() {
-		if (i < foods.getBufferSize() && !foods.isFull()) {
+	public void produce() throws Exception {
+		if (i < foods.getBufferSize()) {
 			int randomIndex = (int) (Math.random() * FoodType.values().length);
 			Food f = new Food(FoodType.values()[randomIndex]);
-			foods.prouce(f , i);
+			foods.prouce(f, i);
 			i++;
-			System.out.println("Producer is producing " + f.type );
-		}
-		else
-		{
-			System.out.println("Producer is waiting");
+			System.out.println("Producer is producing " + f.type);
 		}
 		if (i == foods.getBufferSize()) {
 			i = 0;
