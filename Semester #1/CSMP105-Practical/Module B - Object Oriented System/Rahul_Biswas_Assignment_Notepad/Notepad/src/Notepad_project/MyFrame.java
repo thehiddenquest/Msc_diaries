@@ -25,8 +25,23 @@ import javax.swing.JTextArea;
 import javax.swing.text.*;
 
 public class MyFrame extends JFrame implements ActionListener {
-	JTextArea ta = new JTextArea();
-	JScrollPane sp = new JScrollPane(ta);
+	private JTextArea ta = new JTextArea();
+	private JScrollPane sp = new JScrollPane(ta);
+	private JMenuBar mb; // Declare Menu Bar
+	/* File Option and Its inner Menu items */
+	private JMenu file;
+	private JMenuItem newFile;
+	private JMenuItem openFile;
+	private JMenuItem saveFile;
+	private JMenuItem saveasFile;
+	private JMenuItem exitFile;
+	/* Edit Option and Its inner Menu items */
+	private JMenu edit;
+	private JMenuItem copyEdit;
+	private JMenuItem cutEdit;
+	private JMenuItem deleteEdit;
+	/* Format Option and Its inner Menu items */
+	private JMenu format;
 
 	public MyFrame() {
 		setTitle("My Notepad");
@@ -36,18 +51,33 @@ public class MyFrame extends JFrame implements ActionListener {
 	}
 
 	public void initComponents() {
+		setColors();
+		createMenuBar();
+		addMenuBarToFrame();
+		customizeMenuIcons();
+	}
+
+	private void setColors() {
 		ta.setBackground(Color.WHITE);
 		getContentPane().setBackground(Color.WHITE);
+	}
 
-		JMenuBar mb = new JMenuBar();
+	private void createMenuBar() {
+		mb = new JMenuBar();
 
-		JMenu file = new JMenu("File");
+		createFileMenu(mb);
+		createEditMenu(mb);
+		createFormatMenu(mb);
+	}
 
-		JMenuItem newFile = new JMenuItem("New");
-		JMenuItem openFile = new JMenuItem("Open");
-		JMenuItem saveFile = new JMenuItem("Save");
-		JMenuItem saveasFile = new JMenuItem("Save As");
-		JMenuItem exitFile = new JMenuItem("Exit");
+	private void createFileMenu(JMenuBar mb) {
+		file = new JMenu("File");
+
+		newFile = new JMenuItem("New");
+		openFile = new JMenuItem("Open");
+		saveFile = new JMenuItem("Save");
+		saveasFile = new JMenuItem("Save As");
+		exitFile = new JMenuItem("Exit");
 
 		file.add(newFile);
 		newFile.addActionListener(this);
@@ -58,61 +88,74 @@ public class MyFrame extends JFrame implements ActionListener {
 		file.add(exitFile);
 		exitFile.addActionListener(this);
 
-		JMenu edit = new JMenu("Edit");
+		mb.add(file);
+	}
 
-		JMenuItem copyEdit = new JMenuItem("Copy");
-		JMenuItem cutEdit = new JMenuItem("Cut");
-		JMenuItem deleteEdit = new JMenuItem("Delete");
+	private void createEditMenu(JMenuBar mb) {
+		edit = new JMenu("Edit");
+
+		copyEdit = new JMenuItem("Copy");
+		cutEdit = new JMenuItem("Cut");
+		deleteEdit = new JMenuItem("Delete");
 
 		edit.add(copyEdit);
 		edit.add(cutEdit);
 		edit.add(deleteEdit);
 
-		JMenu format = new JMenu("Format");
-
-		mb.add(file);
 		mb.add(edit);
-		mb.add(format);
-		add(mb, BorderLayout.NORTH);
-
 	}
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String actions = e.getActionCommand();
-        if (actions.equalsIgnoreCase("Exit")) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-            }
-            JOptionPane.showMessageDialog(this, "Notepad Exited");
-            System.exit(0);
-        }
-        if (actions.equalsIgnoreCase("New")) {
-            add(sp);
-            validate();
-        }
-        if (actions.equalsIgnoreCase("Open")) {
-            try {
-                JFileChooser fc = new JFileChooser();
-                if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-                    File f = fc.getSelectedFile();
-                    FileReader fr = new FileReader(f);
-                    ta.read(fr, null);
-                    BufferedReader br = new BufferedReader(fr);
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        ta.append(line + "\n");
-                    }
-                    br.close();
-                    add(sp);
-                    validate();
-                }
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        }
-        
-    }
+	private void createFormatMenu(JMenuBar mb) {
+		JMenu format = new JMenu("Format");
+		mb.add(format);
+	}
+
+	private void addMenuBarToFrame() {
+		add(mb, BorderLayout.NORTH);
+	}
+
+	private void customizeMenuIcons() {
+		// Customize menu icons
+		file.setIconTextGap(20);
+		newFile.setIconTextGap(20);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String actions = e.getActionCommand();
+		if (actions.equalsIgnoreCase("Exit")) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+			JOptionPane.showMessageDialog(this, "Notepad Exited");
+			System.exit(0);
+		}
+		if (actions.equalsIgnoreCase("New")) {
+			add(sp);
+			validate();
+		}
+		if (actions.equalsIgnoreCase("Open")) {
+			try {
+				JFileChooser fc = new JFileChooser();
+				if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+					File f = fc.getSelectedFile();
+					FileReader fr = new FileReader(f);
+					ta.read(fr, null);
+					BufferedReader br = new BufferedReader(fr);
+					String line;
+					while ((line = br.readLine()) != null) {
+						ta.append(line + "\n");
+					}
+					br.close();
+					add(sp);
+					validate();
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+
+	}
 }
