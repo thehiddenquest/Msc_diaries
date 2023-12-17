@@ -3,6 +3,7 @@ package Notepad_project;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.awt.color.ColorSpace;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -24,29 +27,33 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.text.*;
 
-public class MyFrame extends JFrame implements ActionListener {
-	private JTextArea ta = new JTextArea();
-	private JScrollPane sp = new JScrollPane(ta);
-	private JMenuBar mb; // Declare Menu Bar
+public class GUI extends JFrame {
+	private static final long serialVersionUID = 1L;
+	JFrame window;
+	public JTextArea ta = new JTextArea();
+	public JScrollPane sp = new JScrollPane(ta);
+	private Image img;
+	public JMenuBar mb; // Declare Menu Bar
 	/* File Option and Its inner Menu items */
 	private JMenu file;
-	private JMenuItem newFile;
-	private JMenuItem openFile;
-	private JMenuItem saveFile;
-	private JMenuItem saveasFile;
-	private JMenuItem exitFile;
+	private JMenuItem newFile, openFile, saveFile, saveasFile, exitFile;
 	/* Edit Option and Its inner Menu items */
 	private JMenu edit;
-	private JMenuItem copyEdit;
-	private JMenuItem cutEdit;
-	private JMenuItem deleteEdit;
+	private JMenuItem copyEdit, undoEdit, cutEdit, deleteEdit, redoEdit;
 	/* Format Option and Its inner Menu items */
-	private JMenu format;
+//	private JMenu format;
 
-	public MyFrame() {
-		setTitle("My Notepad");
-		setSize(500, 500);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	private eventListening listener = new eventListening(this);
+
+	public GUI() {
+		window = new JFrame();
+		window.setTitle("My Notepad");
+		window.setSize(800, 600);
+		window.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		sp.setBorder(BorderFactory.createEmptyBorder());
+		img = new ImageIcon(getClass().getResource("/Image/notepad_icon.png")).getImage();
+		window.setIconImage(img);
+		window.setVisible(true);
 		initComponents();
 	}
 
@@ -59,12 +66,11 @@ public class MyFrame extends JFrame implements ActionListener {
 
 	private void setColors() {
 		ta.setBackground(Color.WHITE);
-		getContentPane().setBackground(Color.WHITE);
+		window.getContentPane().setBackground(Color.WHITE);
 	}
 
 	private void createMenuBar() {
 		mb = new JMenuBar();
-
 		createFileMenu(mb);
 		createEditMenu(mb);
 		createFormatMenu(mb);
@@ -80,13 +86,13 @@ public class MyFrame extends JFrame implements ActionListener {
 		exitFile = new JMenuItem("Exit");
 
 		file.add(newFile);
-		newFile.addActionListener(this);
+		newFile.addActionListener(listener);
 		file.add(openFile);
-		openFile.addActionListener(this);
+		openFile.addActionListener(listener);
 		file.add(saveFile);
 		file.add(saveasFile);
 		file.add(exitFile);
-		exitFile.addActionListener(this);
+		exitFile.addActionListener(listener);
 
 		mb.add(file);
 	}
@@ -97,9 +103,13 @@ public class MyFrame extends JFrame implements ActionListener {
 		copyEdit = new JMenuItem("Copy");
 		cutEdit = new JMenuItem("Cut");
 		deleteEdit = new JMenuItem("Delete");
+		undoEdit = new JMenuItem("Undo");
+		redoEdit = new JMenuItem("Redo");
 
 		edit.add(copyEdit);
 		edit.add(cutEdit);
+		edit.add(undoEdit);
+		edit.add(redoEdit);
 		edit.add(deleteEdit);
 
 		mb.add(edit);
@@ -111,51 +121,27 @@ public class MyFrame extends JFrame implements ActionListener {
 	}
 
 	private void addMenuBarToFrame() {
-		add(mb, BorderLayout.NORTH);
+		window.add(mb, BorderLayout.NORTH);
 	}
 
 	private void customizeMenuIcons() {
 		// Customize menu icons
-		file.setIconTextGap(20);
-		newFile.setIconTextGap(20);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		String actions = e.getActionCommand();
-		if (actions.equalsIgnoreCase("Exit")) {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
-			JOptionPane.showMessageDialog(this, "Notepad Exited");
-			System.exit(0);
-		}
-		if (actions.equalsIgnoreCase("New")) {
-			add(sp);
-			validate();
-		}
-		if (actions.equalsIgnoreCase("Open")) {
-			try {
-				JFileChooser fc = new JFileChooser();
-				if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-					File f = fc.getSelectedFile();
-					FileReader fr = new FileReader(f);
-					ta.read(fr, null);
-					BufferedReader br = new BufferedReader(fr);
-					String line;
-					while ((line = br.readLine()) != null) {
-						ta.append(line + "\n");
-					}
-					br.close();
-					add(sp);
-					validate();
-				}
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		}
+		file.setIconTextGap(5);
+		edit.setIconTextGap(5);
+//		format.setIconTextGap(5);
+//		file.setIconTextGap(5);
+//		file.setIconTextGap(5);
+		newFile.setIconTextGap(10);
+		openFile.setIconTextGap(10);
+		saveFile.setIconTextGap(10);
+		saveasFile.setIconTextGap(10);
+		exitFile.setIconTextGap(10);
+		copyEdit.setIconTextGap(10);
+		undoEdit.setIconTextGap(10); // 
+		undoEdit.setIconTextGap(10);
+		cutEdit.setIconTextGap(10);
+		deleteEdit.setIconTextGap(10);
+		redoEdit.setIconTextGap(10);
 
 	}
 }
