@@ -1,0 +1,3 @@
+Teaching : Dr. Banani Saha
+Class
+08/04/2024--------------------------Regular Expression,DFA to NDFA , Mealy to moore , Regular Language 

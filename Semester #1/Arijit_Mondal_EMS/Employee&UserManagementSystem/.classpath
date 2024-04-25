@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="/MyProject"/>
+	<classpathentry kind="lib" path="F:/Masters in Computer and Information Science/CSMC/Semester #1/CSMP105-Practical/Module B - Object Oriented System/Messaging/ReferencedLibraries/activation.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="F:/Masters in Computer and Information Science/CSMC/Semester #1/CSMP105-Practical/Module B - Object Oriented System/Messaging/ReferencedLibraries/mail.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="F:/Masters in Computer and Information Science/CSMC/Semester #1/CSMP105-Practical/Module B - Object Oriented System/Messaging/ReferencedLibraries/smtp-1.6.2.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
