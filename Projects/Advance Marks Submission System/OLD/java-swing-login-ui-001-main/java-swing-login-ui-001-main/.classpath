@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="part 4/login-001/src"/>
+	<classpathentry kind="lib" path="part 1/login-001/dist/lib/miglayout-4.0.jar"/>
+	<classpathentry kind="lib" path="part 1/login-001/dist/lib/TimingFramework-0.55.jar"/>
+	<classpathentry kind="lib" path="part 1/login-001/dist/login-001.jar"/>
+	<classpathentry kind="lib" path="part 1/login-001/miglayout-4.0.jar"/>
+	<classpathentry kind="lib" path="part 1/login-001/TimingFramework-0.55.jar"/>
+	<classpathentry kind="lib" path="part 2/login-001/dist/lib/miglayout-4.0.jar"/>
+	<classpathentry kind="lib" path="part 2/login-001/dist/lib/TimingFramework-0.55.jar"/>
+	<classpathentry kind="lib" path="part 2/login-001/dist/login-001.jar"/>
+	<classpathentry kind="lib" path="part 2/login-001/miglayout-4.0.jar"/>
+	<classpathentry kind="lib" path="part 2/login-001/TimingFramework-0.55.jar"/>
+	<classpathentry kind="lib" path="part 3/login-001/dist/lib/javax.mail.jar"/>
+	<classpathentry kind="lib" path="part 3/login-001/dist/lib/miglayout-4.0.jar"/>
+	<classpathentry kind="lib" path="part 3/login-001/dist/lib/mysql-connector-java-5.1.23-bin.jar"/>
+	<classpathentry kind="lib" path="part 3/login-001/dist/lib/TimingFramework-0.55.jar"/>
+	<classpathentry kind="lib" path="part 3/login-001/dist/login-001.jar"/>
+	<classpathentry kind="lib" path="part 3/login-001/javax.mail.jar"/>
+	<classpathentry kind="lib" path="part 3/login-001/miglayout-4.0.jar"/>
+	<classpathentry kind="lib" path="part 3/login-001/mysql-connector-java-5.1.23-bin.jar"/>
+	<classpathentry kind="lib" path="part 3/login-001/TimingFramework-0.55.jar"/>
+	<classpathentry kind="lib" path="part 4/login-001/activation-1.1.jar"/>
+	<classpathentry kind="lib" path="part 4/login-001/dist/lib/activation-1.1.jar"/>
+	<classpathentry kind="lib" path="part 4/login-001/dist/lib/javax.mail.jar"/>
+	<classpathentry kind="lib" path="part 4/login-001/dist/lib/miglayout-4.0.jar"/>
+	<classpathentry kind="lib" path="part 4/login-001/dist/lib/mysql-connector-java-5.1.23-bin.jar"/>
+	<classpathentry kind="lib" path="part 4/login-001/dist/lib/TimingFramework-0.55.jar"/>
+	<classpathentry kind="lib" path="part 4/login-001/dist/login-001.jar"/>
+	<classpathentry kind="lib" path="part 4/login-001/javax.mail.jar"/>
+	<classpathentry kind="lib" path="part 4/login-001/miglayout-4.0.jar"/>
+	<classpathentry kind="lib" path="part 4/login-001/mysql-connector-java-5.1.23-bin.jar"/>
+	<classpathentry kind="lib" path="part 4/login-001/TimingFramework-0.55.jar"/>
+	<classpathentry kind="output" path="part 1/login-001/build/classes"/>
+</classpath>
