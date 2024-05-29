@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js"></script>
+    <title>Basic JavaScript</title>
+    <style>
+        body{
+            background-color: black;
+            color: white;
+        }
+        .container {
+            display: flex;
+
+        }
+        .text {
+            color: white;
+            width: 60%;
+            padding: 10px;
+        }
+        .image {
+            width: 30%;
+            text-align: center; /* Center the caption */
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            padding-left: 20px;
+        }
+        figcaption {
+            font-size: 14px;
+            color: #f3efef; /* You can adjust this to your liking */
+        }
+    </style>
+</head>
+<body>
+        <h1><u><center>JavaScript</center></u></h1>
+        <h3 style="text-align: right;"><I> Date : 27/05/2024</I></h3>
+        <ol>
+            <li>
+                <h3>Creation of JavaScript</h3>
+                <div class="container">
+                    <div class="text">
+                        <p>
+                            Before JavaScript, webpages were static, with only HTML loaded directly from the server and displayed in the browser. 
+                            In 1995, the founder of Netscape decided to create a programming language for their browser. He hired 
+                            <b>Brendan Eich</b> for this task, and Eich developed the first version of JavaScript in just 10 days. Initially, it was known as 
+                            <i>“Mocha”</i>, which was later renamed to <i>“LiveScript”</i> and finally <i>“JavaScript”</i>. Due to conflicts with Microsoft, 
+                            who developed their own version of JavaScript called JScript through reverse engineering, Netscape handed JavaScript over to ECMA. 
+                            The Mozilla Foundation continued to develop JavaScript for the Firefox browser, marking the beginning of ES-1 or ECMAScript.
+                            <br>
+                            <br>
+                            Atwood's Law:<br> 
+                            <br>
+                            &emsp; &emsp; &emsp; <I>"Any application that can be written in JavaScript, will eventually be written in JavaScript."</I>
+ 
+                        </p>
+                    </div>
+                    <div class="image">
+                        <figure>
+                            <img src="Brendan_Eich.jpg" alt="Brendan Eich">
+                            <figcaption>Brendan Eich, creator of JavaScript</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <h3>Basics of JavaScript</h3>
+                <p>Javascript is an interpreter based language. An interpreter in the browser reads over the JavaScript code, 
+                    interprets each line, and runs it. More modern browsers use a technology known as Just-In-Time (JIT) compilation, 
+                    which compiles JavaScript to executable bytecode just as it is about to run. Chrome V8 engine is the interpreter for javascript
+                    and only because of this NodeJs is possible now.<br/>
+                REPL is the acronym  for READ-EVALUATE-PRINT-LOOP. Javascript follow this environment.</p>
+                
+                <h4><u> Printing in console </u></h4>
+
+                <p>
+                    // Print a string is console<br>
+                    Console.log("Hello World!!")<br><br>
+                    // Evaluate and Print <br>
+                    Console.log(5+6*3)<br>
+                </p>
+            </li>
+        </ol>
+</body>
+</html>
