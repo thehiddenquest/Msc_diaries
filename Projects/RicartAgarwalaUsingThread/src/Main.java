@@ -1,5 +1,3 @@
-package TheadsCommunication;
-
 import java.util.ArrayList;
 import java.util.List;
 

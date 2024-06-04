@@ -1,0 +1,98 @@
+Node1: No Message To Receive
+Node2: No Message To Receive
+Node4: No Message To Receive
+Node3: No Message To Receive
+Node1: No Message To Receive
+Node3: No Message To Receive
+Node2: No Message To Receive
+Node4: No Message To Receive
+Node2 sent: Node2 has sent you a message with id: 2. This is my message: 9 to Node3, Logical Clock: 1
+Node1 sent: Node1 has sent you a message with id: 1. This is my message: 0 to Node3, Logical Clock: 1
+Node4: No Message To Receive
+Node4 sent: Node4 has sent you a message with id: 4. This is my message: 5 to Node2, Logical Clock: 1
+Node3 received: Node1 has sent you a message with id: 1. This is my message: 0: 1, Logical Clock: 2
+Node1: No Message To Receive
+Node2 received: Node4 has sent you a message with id: 4. This is my message: 5: 1, Logical Clock: 2
+Node4: No Message To Receive
+Node3 received: Node2 has sent you a message with id: 2. This is my message: 9: 1, Logical Clock: 3
+Node4 sent: Node4 has sent you a message with id: 4. This is my message: 8 to Node3, Logical Clock: 2
+Node3 sent: Node3 has sent you a message with id: 3. This is my message: 18 to Node2, Logical Clock: 4
+Node1: No Message To Receive
+Node2 received: Node3 has sent you a message with id: 3. This is my message: 18: 4, Logical Clock: 5
+Node2 sent: Node2 has sent you a message with id: 2. This is my message: 8 to Node1, Logical Clock: 6
+Node3 received: Node4 has sent you a message with id: 4. This is my message: 8: 2, Logical Clock: 5
+Node4: No Message To Receive
+Node3 is in critical state
+Node2: No Message To Receive
+Node1 received: Node2 has sent you a message with id: 2. This is my message: 8: 6, Logical Clock: 7
+Node2 sent: Node2 has sent you a message with id: 2. This is my message: 2 to Node3, Logical Clock: 7
+Node1 sent: Node1 has sent you a message with id: 1. This is my message: 5 to Node4, Logical Clock: 8
+Node4 received: Node1 has sent you a message with id: 1. This is my message: 5: 8, Logical Clock: 9
+Node1: No Message To Receive
+Node2: No Message To Receive
+Node1 sent: Node1 has sent you a message with id: 1. This is my message: 10 to Node3, Logical Clock: 9
+Node3 is exiting critical state
+Node3 received: Node2 has sent you a message with id: 2. This is my message: 2: 7, Logical Clock: 8
+Node4: No Message To Receive
+Node1: No Message To Receive
+Node2: No Message To Receive
+Node3 received: Node1 has sent you a message with id: 1. This is my message: 10: 9, Logical Clock: 10
+Node3 sent: Node3 has sent you a message with id: 3. This is my message: 5 to Node1, Logical Clock: 11
+Node4: No Message To Receive
+Node2: No Message To Receive
+Node1 received: Node3 has sent you a message with id: 3. This is my message: 5: 11, Logical Clock: 12
+Node4: No Message To Receive
+Node3: No Message To Receive
+Node3 sent: Node3 has sent you a message with id: 3. This is my message: 9 to Node1, Logical Clock: 12
+Node4 sent: Node4 has sent you a message with id: 4. This is my message: 6 to Node3, Logical Clock: 10
+Node2: No Message To Receive
+Node1 received: Node3 has sent you a message with id: 3. This is my message: 9: 12, Logical Clock: 13
+Node4: No Message To Receive
+Node4 sent: Node4 has sent you a message with id: 4. This is my message: 12 to Node2, Logical Clock: 11
+Node3 received: Node4 has sent you a message with id: 4. This is my message: 6: 10, Logical Clock: 13
+Node3 is in critical state
+Node1: No Message To Receive
+Node2 received: Node4 has sent you a message with id: 4. This is my message: 12: 11, Logical Clock: 12
+Node4: No Message To Receive
+Node1: No Message To Receive
+Node2: No Message To Receive
+Node1 sent: Node1 has sent you a message with id: 1. This is my message: 9 to Node3, Logical Clock: 14
+Node2 sent: Node2 has sent you a message with id: 2. This is my message: 11 to Node4, Logical Clock: 13
+Node3 is exiting critical state
+Node3 received: Node1 has sent you a message with id: 1. This is my message: 9: 14, Logical Clock: 15
+Node4 received: Node2 has sent you a message with id: 2. This is my message: 11: 13, Logical Clock: 14
+Node4 sent: Node4 has sent you a message with id: 4. This is my message: 15 to Node2, Logical Clock: 15
+Node1: No Message To Receive
+Node1 sent: Node1 has sent you a message with id: 1. This is my message: 11 to Node4, Logical Clock: 15
+Node2 received: Node4 has sent you a message with id: 4. This is my message: 15: 15, Logical Clock: 16
+Node2 sent: Node2 has sent you a message with id: 2. This is my message: 7 to Node1, Logical Clock: 17
+Node3: No Message To Receive
+Node3 sent: Node3 has sent you a message with id: 3. This is my message: 19 to Node1, Logical Clock: 16
+Node4 received: Node1 has sent you a message with id: 1. This is my message: 11: 15, Logical Clock: 16
+Node2: No Message To Receive
+Node2 sent: Node2 has sent you a message with id: 2. This is my message: 8 to Node3, Logical Clock: 18
+Node1 received: Node2 has sent you a message with id: 2. This is my message: 7: 17, Logical Clock: 18
+Node3 received: Node2 has sent you a message with id: 2. This is my message: 8: 18, Logical Clock: 19
+Node4: No Message To Receive
+Node4 sent: Node4 has sent you a message with id: 4. This is my message: 14 to Node3, Logical Clock: 17
+Node2: No Message To Receive
+Node1 received: Node3 has sent you a message with id: 3. This is my message: 19: 16, Logical Clock: 19
+Node1 sent: Node1 has sent you a message with id: 1. This is my message: 15 to Node4, Logical Clock: 20
+Node3 received: Node4 has sent you a message with id: 4. This is my message: 14: 17, Logical Clock: 20
+Node3 is in critical state
+Node4 received: Node1 has sent you a message with id: 1. This is my message: 15: 20, Logical Clock: 21
+Node2: No Message To Receive
+Node1: No Message To Receive
+Node4: No Message To Receive
+Node4 sent: Node4 has sent you a message with id: 4. This is my message: 17 to Node2, Logical Clock: 22
+Node1: No Message To Receive
+Node2 received: Node4 has sent you a message with id: 4. This is my message: 17: 22, Logical Clock: 23
+Node3 is exiting critical state
+Node3: No Message To Receive
+Node3 sent: Node3 has sent you a message with id: 3. This is my message: 9 to Node4, Logical Clock: 21
+Node4 received: Node3 has sent you a message with id: 3. This is my message: 9: 21, Logical Clock: 23
+Node4 is in critical state
+Node2: No Message To Receive
+Node1: No Message To Receive
+Node1 sent: Node1 has sent you a message with id: 1. This is my message: 12 to Node3, Logical Clock: 21
+Node2 sent: Node2 has sent you a message with id: 2. This is my message: 4 to Node3, Logical Clock: 24
