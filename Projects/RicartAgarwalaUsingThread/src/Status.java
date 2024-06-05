@@ -1,6 +1,6 @@
 public enum Status {
-    InCriticalState,
-    AfterCriticalState,
-    None,
-    Requesting
+    InCriticalState, // While in critical state
+    AfterCriticalState, // just after critical state but can not request right away
+    None, // Default
+    Requesting // Requesting for critical state
 }

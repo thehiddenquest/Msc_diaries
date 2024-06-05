@@ -7,6 +7,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class Message {
     private ConcurrentHashMap<String, BlockingQueue<String>> messageQueues = new ConcurrentHashMap<>();
+    // Store message for specific recipient
+
+
 
     public Message(List<String> nodeNames) {
         for (String nodeName : nodeNames) {
@@ -15,6 +18,7 @@ public class Message {
     }
 
     public void setMessage(String message, String recipientName) {
+        // To set messages in hashmap
         BlockingQueue<String> recipientQueue = messageQueues.get(recipientName);
         if (recipientQueue != null) {
             try {
@@ -26,6 +30,7 @@ public class Message {
     }
 
     public String getMessage(String name) {
+        // When a recipient want to get intended message
         BlockingQueue<String> queue = messageQueues.get(name);
         if (queue != null) {
             try {
