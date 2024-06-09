@@ -8,4 +8,4 @@ const multiply = (callback, num1, num2) => {
     console.log("The result is:", result);
   };
   
-  multiply(printResult, 3, 4); 
+  multiply(printResult, 13232, 332324); 

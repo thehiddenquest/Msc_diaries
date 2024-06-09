@@ -1,4 +1,4 @@
-const numbers = [1, 2, 3, 4, 5];
+const numbers = [120, 209, 230, 340, 550];
 
 // Task 1: Double each number in the array using an arrow function
 const doubledNumbers = numbers.map(num => num * 2);
