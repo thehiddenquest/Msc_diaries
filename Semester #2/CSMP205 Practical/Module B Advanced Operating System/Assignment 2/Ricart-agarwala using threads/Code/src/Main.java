@@ -4,7 +4,6 @@
 // Here Threads are shown as different system which are distributed and can request for critical state
 //without any external interference.
 
-
 // Input File Format
 /* node1,node2,node3,node4 */
 //or
@@ -21,9 +20,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        List<String> nodeNames = new ArrayList<>();  // List to store node names from file
+        List<String> nodeNames = new ArrayList<>(); // List to store node names from file
         int id = 1; // ID of the first node
-        String filename = openFileDialog();  // Get file name from gui component
+        String filename = openFileDialog(); // Get file name from gui component
         if (filename == null) {
             System.out.println("No file selected.");
             return;
@@ -32,9 +31,10 @@ public class Main {
             Scanner scanner = new Scanner(new File(filename));
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] tokens = line.split(",");  // Split line by commas
+                String[] tokens = line.split(","); // Split line by commas
                 nodeNames.addAll(List.of(tokens)); // Store node name
             }
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("Error: File not found - nodes.txt");
             // Handle the exception if the file is not found
@@ -51,6 +51,7 @@ public class Main {
         for (Node node : nodes) {
             new Thread(node).start(); // start each node
         }
+
     }
 
     private static String openFileDialog() {
