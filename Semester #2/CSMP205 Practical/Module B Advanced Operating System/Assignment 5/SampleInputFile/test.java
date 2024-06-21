@@ -126,6 +126,6 @@ public class test {
             }
             index++;
         }
-        throw new IllegalArgumentException("Vertex not found: " + vertex);
+        return index;
     }
 }

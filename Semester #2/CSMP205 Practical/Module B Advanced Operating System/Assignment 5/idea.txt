@@ -1,0 +1,18 @@
+take file input in main
+send to file to graph class
+if a node is initiator send the node to main class 
+and other nodes 
+create node classes from the node names 
+start them in main
+Node class uses the channel class to send message , send own name , adjacent vertexs name and the message
+channel class have a concurrent hashmap where key must be a object<src,dest> and value is blocking queue representing the channel between src to dest.
+
+randomly choose between message and marker , if message then randomly generate some message , if marker the no message after that.
+
+for initiator,
+before sending marker ,print sending queue , recieved queue and then send marker
+
+for others,
+after receiving marker, print sending queue , recieved queue and then send marker to adjacent nodes.
+
+this cannot be synchronized ? 
