@@ -1,4 +1,0 @@
-process 1 -> process 2 -> process 3
-process 3 -> process 4
-process 2 -> null
-process 4 -> null

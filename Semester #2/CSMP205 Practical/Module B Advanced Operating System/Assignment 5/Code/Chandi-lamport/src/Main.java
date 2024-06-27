@@ -1,9 +1,11 @@
 import java.awt.FileDialog;
 import java.awt.Frame;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 import javax.swing.JOptionPane;
 
@@ -21,7 +23,8 @@ public class Main {
         String initiator = JOptionPane.showInputDialog("Enter initiator:");
         Map<String, List<String>> nodeNames = graph.checkInitiator(initiator);
         if (nodeNames != null) {
-            System.out.println("System log ::");
+            System.out.println();
+            System.out.println("System Log ::::\n");
             // Create node with name initiator and search it from map
             Node node = new Node(initiator, channel, nodeNames.get(initiator));
             Thread thread = new Thread(node);
@@ -29,7 +32,7 @@ public class Main {
             threads.add(thread);
             thread.start();
             node.setInitiatorStatus();
-            System.out.println(initiator + " is now initiator");
+            System.out.println("Information Message :: " + initiator + " is now initiator");
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
@@ -51,38 +54,82 @@ public class Main {
                     e.printStackTrace();
                 }
             }
-            System.out.println("Global Snapshot :: ");
+            System.out.println();
+            System.out.println("Global Snapshot ::::");
             for (Node n : nodes) {
-                System.out.println("State of " + n.getName());
+                System.out.println("\nLocal State Recording of " + n.getName() + " ::");
                 HashMap<String, List<String>> sendMessage = n.getSendMessages();
-                System.out.println("Messages send: ");
-                if (sendMessage != null) {
+                System.out.println("-->Messages delivered: ");
+                if (!sendMessage.isEmpty()) {
                     for (Map.Entry<String, List<String>> sendMessages : sendMessage.entrySet()) {
                         String key = sendMessages.getKey();
                         List<String> values = sendMessages.getValue();
-                        System.out.println("From:  " + key);
-                        for (String Message : values) {
-                            System.out.println(Message);
+                        System.out.print("To:  " + key + "  { ");
+                        for (int i = 0; i < values.size(); i++) {
+                            System.out.print(values.get(i));
+                            if (i < values.size() - 1) {
+                                System.out.print(" , ");
+                            }
                         }
+                        System.out.println(" }");
                     }
                 } else {
                     System.out.println("null");
                 }
-                HashMap<String, List<String>> receivedMessage = n.getSendMessages();
-                System.out.println("Messages received: ");
-                if (receivedMessage != null) {
+                HashMap<String, List<String>> receivedMessage = n.getReceivedMessages();
+                System.out.println("-->Messages received: ");
+                if (!receivedMessage.isEmpty()) {
                     for (Map.Entry<String, List<String>> receivedMessages : receivedMessage.entrySet()) {
                         String key = receivedMessages.getKey();
                         List<String> values = receivedMessages.getValue();
-                        System.out.println("From:  " + key);
-                        for (String Message : values) {
-                            System.out.println(Message);
+                        System.out.print("From:  " + key + "  { ");
+                        for (int i = 0; i < values.size(); i++) {
+                            System.out.print(values.get(i));
+                            if (i < values.size() - 1) {
+                                System.out.print(" , ");
+                            }
                         }
+                        System.out.println(" }");
                     }
                 } else {
                     System.out.println("null");
                 }
             }
+            System.out.println("\nCommunication Channel State ::");
+            HashMap<String, Queue<String>> communicationChannel = channel.getCommunicationChannel();
+            for (Map.Entry<String, Queue<String>> specificChannel : communicationChannel.entrySet()) {
+                String receiverName = specificChannel.getKey();
+                HashMap<String, List<String>> tempHashMap = new HashMap<>();
+                Queue<String> tempQueue = specificChannel.getValue();
+                for (String message : tempQueue) {
+                    String[] splitMessage = message.split(":");
+                    String senderName = splitMessage[0];
+                    String messageContentType = splitMessage[1];
+                    if (messageContentType.equalsIgnoreCase("TEXT")) {
+                        if (tempHashMap.containsKey(senderName)) {
+                            tempHashMap.get(senderName).add(splitMessage[2]);
+                        } else {
+                            List<String> tempList = new ArrayList<>();
+                            tempList.add(splitMessage[2]);
+                            tempHashMap.put(senderName, tempList);
+                        }
+                    }
+                }
+                for (Map.Entry<String, List<String>> tempNode : tempHashMap.entrySet()) {
+                    String senderName = tempNode.getKey();
+                    List<String> values = tempNode.getValue();
+                    System.out.print("\n Channel :: " + senderName + " -- " + receiverName + " :  { ");
+                    for (int i = 0; i < values.size(); i++) {
+                        System.out.print(values.get(i));
+                        if (i < values.size() - 1) {
+                            System.out.print(" , ");
+                        }
+                    }
+                    System.out.println(" }");
+                }
+
+            }
+
             System.exit(0);
         }
     }

@@ -59,8 +59,9 @@ public class Graph {
 
     private void printGraph() {
         System.out.println();
+        System.out.println("Graph Information :::: ");
         System.out.println();
-        System.out.println("Adjacency List:");
+        System.out.println("Inserted Graph (Adjacency List Representation) :");
         for (Map.Entry<String, List<String>> entry : adjacencyList.entrySet()) {
             System.out.print(entry.getKey() + " -> ");
             List<String> neighbors = entry.getValue();
