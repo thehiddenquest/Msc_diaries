@@ -27,7 +27,7 @@ public class Node implements Runnable {
             try {
                 if (isInitiator)
                     messageTypeChooser();
-                int willSend = random.nextInt(10);
+                int willSend = random.nextInt(10 + 1);
                 if (messageType == MessageType.MARKER || willSend < 8)
                     sendMessage();
                 if (!Thread.currentThread().isInterrupted()) {
@@ -68,7 +68,7 @@ public class Node implements Runnable {
                 channel.deliver(message);
             }
             Thread.currentThread().interrupt();
-        } else {
+        } else if (!neighbor.isEmpty()) {
             int randomIndex = random.nextInt(neighbor.size());
             // Get the element at the random index
             String receiverName = neighbor.get(randomIndex);

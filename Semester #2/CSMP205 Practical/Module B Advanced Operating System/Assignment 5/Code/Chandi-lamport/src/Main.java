@@ -58,8 +58,8 @@ public class Main {
             System.out.println("Global Snapshot ::::");
             for (Node n : nodes) {
                 System.out.println("\nLocal State Recording of " + n.getName() + " ::");
-                HashMap<String, List<String>> sendMessage = n.getSendMessages();
                 System.out.println("-->Messages delivered: ");
+                HashMap<String, List<String>> sendMessage = n.getSendMessages();
                 if (!sendMessage.isEmpty()) {
                     for (Map.Entry<String, List<String>> sendMessages : sendMessage.entrySet()) {
                         String key = sendMessages.getKey();
@@ -74,10 +74,10 @@ public class Main {
                         System.out.println(" }");
                     }
                 } else {
-                    System.out.println("null");
+                    System.out.println("NONE");
                 }
-                HashMap<String, List<String>> receivedMessage = n.getReceivedMessages();
                 System.out.println("-->Messages received: ");
+                HashMap<String, List<String>> receivedMessage = n.getReceivedMessages();
                 if (!receivedMessage.isEmpty()) {
                     for (Map.Entry<String, List<String>> receivedMessages : receivedMessage.entrySet()) {
                         String key = receivedMessages.getKey();
@@ -92,7 +92,7 @@ public class Main {
                         System.out.println(" }");
                     }
                 } else {
-                    System.out.println("null");
+                    System.out.println("NONE");
                 }
             }
             System.out.println("\nCommunication Channel State ::");
@@ -130,6 +130,9 @@ public class Main {
 
             }
 
+            System.exit(0);
+        } else {
+            System.out.println("Please choose another initiator!!");
             System.exit(0);
         }
     }
