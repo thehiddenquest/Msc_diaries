@@ -27,4 +27,16 @@ CREATE TABLE IF NOT EXISTS `salary` (
     FOREIGN KEY (`empID`) REFERENCES `employee` (`empID`)
 ) DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
+INSERT INTO
+    `dept` (`deptID`, `deptName`)
+VALUES ('D001', 'Operations'),
+    ('D002', 'Engineering'),
+    ('D003', 'Sales and Marketing'),
+    ('D004', 'Quality Assurance'),
+    ('D005', 'Product Management'),
+    ('D006', 'Technical Support');
+
+ALTER TABLE `salary`
+ADD COLUMN `DA` FLOAT;
+
 COMMIT;

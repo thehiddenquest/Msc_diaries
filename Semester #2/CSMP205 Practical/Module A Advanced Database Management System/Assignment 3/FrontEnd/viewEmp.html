@@ -39,7 +39,7 @@
                             </th>
                             <th
                                 class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                                DOJ
+                                Date of Joining
                             </th>
                             <th
                                 class="px-2 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
@@ -68,7 +68,49 @@
         </div>
     </section>
     <script>
-        // Fetching Users Here
+        fetch('/getEmp')
+            .then(res => res.json())
+            .then(data => {
+                const tbody = document.getElementById('emp-list');
+                data.forEach(element => {
+                    const row = document.createElement('tr');
+                    let genderLabel = '';
+                switch (element.empGender) {
+                    case 'M':
+                        genderLabel = 'Male';
+                        break;
+                    case 'F':
+                        genderLabel = 'Female';
+                        break;
+                    case 'T':
+                        genderLabel = 'Trans';
+                        break;
+                    case 'O':
+                        genderLabel = 'Others';
+                        break;
+                    default:
+                        genderLabel = 'Unknown';
+                }
+                const dojDate = new Date(element.doj);
+                const formattedDoj = dojDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                    row.innerHTML = `
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${element.empID}</td>
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${element.empName}</td>
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${genderLabel}</td>
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${element.empPosition}</td>
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${formattedDoj}</td>
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${element.deptName}</td>
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${element.salAmt}</td>
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${element.commAmt}</td>
+                    `;
+                    tbody.append(row);
+                });
+            })
+            .catch(err => console.log('Err fetching : ', err));
     </script>
 </body>
 
