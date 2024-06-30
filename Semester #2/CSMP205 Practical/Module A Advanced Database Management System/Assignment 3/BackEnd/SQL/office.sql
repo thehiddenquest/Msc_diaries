@@ -36,7 +36,16 @@ VALUES ('D001', 'Operations'),
     ('D005', 'Product Management'),
     ('D006', 'Technical Support');
 
-ALTER TABLE `salary`
-ADD COLUMN `DA` FLOAT;
+ALTER TABLE `salary` add COLUMN `DA` int(3);
 
+
+
+ALTER TABLE `employee`
+DROP FOREIGN KEY `FK_employee_deptID`, -- Drop existing foreign key constraint (if it exists)
+ADD CONSTRAINT `FK_employee_deptID` FOREIGN KEY (`deptID`) REFERENCES `dept` (`deptID`) ON DELETE SET NULL;
+
+
+ALTER TABLE `salary`
+DROP FOREIGN KEY `FK_salary_empID_salary`,  -- Drop existing foreign key constraint (if it exists)
+ADD CONSTRAINT `FK_salary_empID` FOREIGN KEY (`empID`) REFERENCES `employee` (`empID`) ON DELETE CASCADE;
 COMMIT;
