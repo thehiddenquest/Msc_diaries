@@ -21,12 +21,11 @@
             <h3 class=" font-bold mb-4">Employee Information</h3>
             <div class="flex mb-12">
                 <label for="employeeID" class="block text-sm font-medium text-gray-700 mr-4">Employee ID</label>
-                <select id="employeeID" name="employeeID" class="form-select focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-                    <!-- Dropdown options will be populated dynamically -->
-                </select>
+                <input id="employeeID" name="employeeID" placeholder ="Enter Employee ID"class="form-select focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+            </Input>
             </div>
             <div class="flex mb-4">
-                <button id="checkProfileBtn" Stype="button" class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button id="checkProfileBtn" type="button" class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                    Check profile
                 </button>
             </div>
@@ -87,68 +86,76 @@
     </section>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const deptDropdown = document.getElementById("employeeID");
+
             const checkProfileBtn = document.getElementById("checkProfileBtn");
             const empList = document.getElementById("emp-list");
 
-            // Fetch employee IDs and populate dropdown
-            fetch("/getEmpID")
-                .then((response) => response.json())
-                .then((data) => {
-                    data.forEach((emp) => {
-                        const option = document.createElement("option");
-                        option.value = emp.empID;
-                        option.textContent = `${emp.empID} :: ${emp.empName}`;
-                        deptDropdown.appendChild(option);
-                    });
-                })
-                .catch((error) => {
-                    console.error("Error fetching employee IDs:", error);
-                });
-
             // Handle check profile button click
             checkProfileBtn.addEventListener("click", () => {
-                const selectedEmpID = deptDropdown.value;
+                const selectedEmpID = document.getElementById("employeeID").value
 
                 if (selectedEmpID) {
-                    // Fetch employee details based on selected employee ID
-                    fetch(`/getEmpDetails/${selectedEmpID}`)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            return response.json();
-                        })
-                        .then(employee => {
-                            // Clear previous entries
-                            empList.innerHTML = "";
-                            const salAmt = parseInt(employee.salAmt);
-                            const totalSalary = salAmt + (salAmt * employee.DA / 100);
-                           // let totalSalary = $employee.salAmt + $employee.salAmt * $employee.DA /100;
-
-                            // Create row for employee details
-                            const row = document.createElement("tr");
-                            row.innerHTML = `
-                                <td class="border-t-2 border-gray-200 px-4 py-3">${employee.empID}</td>
-                                <td class="border-t-2 border-gray-200 px-4 py-3">${employee.empName}</td>
-                                <td class="border-t-2 border-gray-200 px-4 py-3">${employee.empGender}</td>
-                                <td class="border-t-2 border-gray-200 px-4 py-3">${employee.empPosition}</td>
-                                <td class="border-t-2 border-gray-200 px-4 py-3">${new Date(employee.doj).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</td>
-                                <td class="border-t-2 border-gray-200 px-4 py-3">${employee.deptName}</td>
-                                <td class="border-t-2 border-gray-200 px-4 py-3">${employee.salAmt}</td>
-                                <td class="border-t-2 border-gray-200 px-4 py-3">${employee.DA}</td>
-                                <td class="border-t-2 border-gray-200 px-4 py-3">${totalSalary}</td>
-                            `;
-                            empList.appendChild(row);
-                        })
-                        .catch(error => {
-                            console.error(`Error fetching employee details for ID ${selectedEmpID}:`, error);
-                            alert(`Error fetching employee details for ID ${selectedEmpID}. Please try again.`);
-                        });
-                } else {
-                    alert("Please select an employee ID.");
+        // Fetch employee details based on selected employee ID
+        fetch(`/getEmpDetails/${selectedEmpID}`)
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error('Employee not found');
+                    }
+                    throw new Error('Network response was not ok');
                 }
+                return response.json();
+            })
+            .then((employee) => {
+                // Clear previous entries
+                empList.innerHTML = "";
+
+                if (employee.error) {
+                    // Display error message in the table
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td colspan="9" class="border-t-2 border-gray-200 px-4 py-3 text-center text-red-500">
+                            ${employee.error}
+                        </td>
+                    `;
+                    empList.appendChild(row);
+                } else {
+                    const salAmt = parseInt(employee.salAmt);
+                    const totalSalary = salAmt + (salAmt * employee.DA / 100);
+
+                    // Create row for employee details
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${employee.empID}</td>
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${employee.empName}</td>
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${employee.empGender}</td>
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${employee.empPosition}</td>
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${new Date(employee.doj).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</td>
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${employee.deptName}</td>
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${employee.salAmt}</td>
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${employee.DA}</td>
+                        <td class="border-t-2 border-gray-200 px-4 py-3">${totalSalary}</td>
+                    `;
+                    empList.appendChild(row);
+                }
+            })
+            .catch(error => {
+                console.log(`Error fetching employee details for ID ${selectedEmpID}:`, error);
+                // Clear previous entries
+                empList.innerHTML = "";
+                // Display error message in the table
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td colspan="9" class="border-t-2 border-gray-200 px-4 py-3 text-center text-red-500">
+                        ${error.message}
+                    </td>
+                `;
+                empList.appendChild(row);
             });
+    } else {
+        alert("Please select an employee ID.");
+    }
+});
         });
     </script>
 </body>

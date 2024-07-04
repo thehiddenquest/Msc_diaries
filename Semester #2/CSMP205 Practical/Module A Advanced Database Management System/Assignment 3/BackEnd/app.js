@@ -6,6 +6,7 @@ const alert = require("alert");
 const db = require("./db");
 const app = express();
 
+app.use(express.json());
 //Getting frontend folder
 app.use(express.static(path.join(__dirname, "../FrontEnd")));
 
@@ -21,7 +22,6 @@ app.post("/insert", (req, res) => {
   const { empID, empName, empGender, empPosition, doj, deptID, sal, comm } =
     req.body;
   let DA = 0; // Initialize DA
-
   switch (empPosition) {
     case "Jr. Supervisor":
       DA = 22; // 22% of salary
@@ -40,7 +40,9 @@ app.post("/insert", (req, res) => {
   db.beginTransaction((err) => {
     if (err) {
       console.log("Cannot begin transaction:", err);
-      return res.json({ error: "Database error. Please try again later." });
+      return res
+        .status(500)
+        .json({ error: "Database error. Please try again later." });
     }
 
     const checkDept = "SELECT deptName FROM dept WHERE deptID = ?";
@@ -48,13 +50,15 @@ app.post("/insert", (req, res) => {
       if (err) {
         console.log("Error checking department:", err);
         return db.rollback(() => {
-          res.json({ error: "Database error. Please try again later." });
+          res
+            .status(500)
+            .json({ error: "Database error. Please try again later." });
         });
       }
 
       if (result.length === 0) {
         return db.rollback(() => {
-          res.json({ error: "Department does not exist." });
+          res.status(500).json({ error: "Department does not exist." });
         });
       }
 
@@ -68,11 +72,13 @@ app.post("/insert", (req, res) => {
             console.error("Error inserting employee:", err);
             return db.rollback(() => {
               if (err.code === "ER_DUP_ENTRY") {
-                res.json({
+                res.status(500).json({
                   error: "Duplicate employee ID. Please use a different ID.",
                 });
               } else {
-                res.json({ error: "Database error. Please try again later." });
+                res
+                  .status(500)
+                  .json({ error: "Database error. Please try again later." });
               }
             });
           }
@@ -83,7 +89,9 @@ app.post("/insert", (req, res) => {
             if (err) {
               console.log("Error inserting salary:", err);
               return db.rollback(() => {
-                res.json({ error: "Database error. Please try again later." });
+                res
+                  .status(500)
+                  .json({ error: "Database error. Please try again later." });
               });
             }
 
@@ -92,12 +100,13 @@ app.post("/insert", (req, res) => {
               if (err) {
                 console.log("Error committing transaction:", err);
                 return db.rollback(() => {
-                  res.json({
+                  res.status(500).json({
                     error: "Database error. Please try again later.",
                   });
                 });
               }
-              res.redirect("/success.html"); // Redirect to success page after successful transaction
+              res.json("Successful");
+              //    res.redirect("/success.html"); // Redirect to success page after successful transaction
             });
           });
         }
@@ -128,25 +137,12 @@ app.get("/departments", (req, res) => {
     res.json(results);
   });
 });
-app.get("/getEmpID", (req, res) => {
-  const sql = "SELECT * FROM `employee`";
-
-  db.query(sql, (err, results) => {
-    if (err) {
-      console.error("Error querying employees: " + err.stack);
-      res.status(500).json({ error: "Error querying employees" });
-      return;
-    }
-    res.json(results);
-  });
-});
 
 app.get("/getEmpDetails/:empID", (req, res) => {
-  try {
-    const empID = req.params.empID;
+  const empID = req.params.empID;
 
-    // SQL query with parameterized query to prevent SQL injection
-    const sql = `
+  // SQL query with parameterized query to prevent SQL injection
+  const sql = `
     SELECT employee.*, salary.salAmt, salary.DA, dept.deptName 
     FROM employee 
     JOIN salary ON employee.empID = salary.empID 
@@ -154,26 +150,19 @@ app.get("/getEmpDetails/:empID", (req, res) => {
     WHERE employee.empID = ?
 `;
 
-    // Execute SQL query with parameters
-    db.query(sql, [empID], (err, results) => {
-      if (err) {
-        console.error("Error executing SQL query:", err);
-        return res.status(500).json({ error: "Internal Server Error" });
-      }
+  // Execute SQL query with parameters
+  db.query(sql, [empID], (err, results) => {
+    if (err) {
+      console.error("Error executing SQL query:", err);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
 
-      if (results.length === 0) {
-        return res.status(404).json({ error: "Employee not found" });
-      }
-      // Send response as JSON
-      res.json(results[0]); // Assuming empID is unique, so we take the first result
-    });
-  } catch (err) {
-    console.error(
-      `Error fetching employee details for ID ${req.params.empID}:`,
-      err
-    );
-    res.status(500).json({ error: "Internal Server Error" });
-  }
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Employee not found" });
+    }
+    // Send response as JSON
+    res.json(results[0]); // Assuming empID is unique, so we take the first result
+  });
 });
 
 app.delete("/deleteEmployee/:empID", (req, res) => {
@@ -182,11 +171,17 @@ app.delete("/deleteEmployee/:empID", (req, res) => {
   db.query(sql, [empID], (err, result) => {
     if (err) {
       console.error("Error deleting employee:", err);
-      return res.status(500).json({ error: "Internal Server Error" });
+      res.status(500).json({
+        error: "Internal Server Error",
+        code: err.code,
+        message: err.message,
+      });
+      return;
     }
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({ error: "Employee not found" });
+      res.status(404).json({ error: "Employee not found" });
+      return;
     }
 
     res.json({ message: "Employee deleted successfully" });
