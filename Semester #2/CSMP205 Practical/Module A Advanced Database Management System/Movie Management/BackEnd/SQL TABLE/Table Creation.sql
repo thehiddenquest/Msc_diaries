@@ -82,7 +82,11 @@ CREATE TABLE Quotes (
     Movie_Year INT,
     Movie_Quotation TEXT,
     Actor_Name VARCHAR(25),
-    PRIMARY KEY (Movie_Title, Movie_Year),
+    PRIMARY KEY (
+        Movie_Title,
+        Movie_Year,
+        Actor_Name
+    ),
     FOREIGN KEY (Movie_Title, Movie_Year) REFERENCES Movie (Title, Year),
     FOREIGN KEY (Actor_Name) REFERENCES Actor (Name)
 );
@@ -132,3 +136,33 @@ VALUES ('Action'),
     ('Romance'),
     ('Science Fiction'),
     ('Thriller');
+
+INSERT INTO
+    Movie (
+        Title,
+        Year,
+        Length,
+        Plot_outline,
+        Production_Company_Name
+    )
+VALUES (
+        'The Dark Knight',
+        2008,
+        152,
+        'When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.',
+        'Warner Bros. Pictures'
+    ),
+    (
+        'Inception',
+        2010,
+        148,
+        'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.',
+        'Warner Bros. Pictures'
+    ),
+    (
+        'The Godfather',
+        1972,
+        175,
+        'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.',
+        'Paramount Pictures'
+    );
