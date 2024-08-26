@@ -1,0 +1,6 @@
+Sites:
+A,B,C,D
+Resources:
+resource1(A),resource2(A),resource3(C)
+Processes:
+process1(A),process2(B),process3(D)

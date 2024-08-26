@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#DFD0B8]">
+    <nav class="bg-[#153448] shadow-lg sticky top-0 z-10">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div>
+                        <span class="font-semibold text-white text-lg">Movie Management</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <a href="Index.html" class="py-4 px-2 text-white font-semibold hover:text-green-500 transition duration-300">Home</a>
+                    <a href="#" class="py-4 px-2 text-white font-semibold hover:text-green-500 transition duration-300" onclick="showContactPopup()">Contact us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container mx-auto mt-12 px-4">
+        <div id="searchMovies" class="bg-white p-6 rounded-lg shadow-lg mt-8">
+            <h2 class="text-2xl font-bold mb-4">Search Movies</h2>
+            <form id="searchForm" class="space-y-4">
+                <div>
+                    <label for="searchBy" class="block text-sm font-medium text-gray-700">Search movies by:</label>
+                    <select id="searchBy" name="searchBy" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="year">Year</option>
+                        <option value="productionCompany">Production Company</option>
+                    </select>
+                </div>
+                
+                <div id="yearSearch" class="flex space-x-4">
+                    <div class="flex-1">
+                        <label for="fromYear" class="block text-sm font-medium text-gray-700">From:</label>
+                        <input type="number" id="fromYear" name="fromYear" min="1800" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div class="flex-1">
+                        <label for="toYear" class="block text-sm font-medium text-gray-700">To:</label>
+                        <input type="number" id="toYear" name="toYear" min="1800" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                </div>
+                
+                <div id="companySearch" class="hidden">
+                    <label for="productionCompany" class="block text-sm font-medium text-gray-700">Production Company:</label>
+                    <select id="productionCompany" name="productionCompany" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+                
+                <button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Search
+                </button>
+            </form>
+        </div>
+        
+        <div id="resultsTable" class="mt-8 overflow-x-auto">
+            <table class="min-w-full bg-white">
+                <thead class="bg-gray-800 text-white">
+                    <tr>
+                        <th class="py-3 px-4 text-left cursor-pointer">Sno.</th>
+                        <th class="py-3 px-4 text-left cursor-pointer">Movie Name</th>
+                        <th class="py-3 px-4 text-left cursor-pointer">Release Date</th>
+                        <th class="py-3 px-4 text-left cursor-pointer">Director</th>
+                        <th class="py-3 px-4 text-left cursor-pointer">Genre</th>
+                        <th class="py-3 px-4 text-left cursor-pointer">Production Company</th>
+                        <th class="py-3 px-4 text-left cursor-pointer">Running Length(in min.)</th>
+                    </tr>
+                </thead>
+                <tbody id="movieResults">
+                    <!-- Results will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Pop-up HTML -->
+    <div id="contactPopup" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4 text-center">Contact Details</h3>
+                <hr class="border-black font-bold py-2">
+                <p class="text-sm text-black mb-2 font-bold">Rahul Biswas</p>
+                <p class="text-sm text-black mb-2 font-bold">Arijit Mondal</p>
+                <p class="text-sm text-black mb-2 text-center">MSc. Computer Science, Semester 2,</p>
+                <p class="text-sm text-black mb-4 text-center">University of Calcutta, Technology Campus</p>
+                <div class="mt-4">
+                    <button id="closeContactPopup" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-red-300">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+                function showContactPopup() {
+            document.getElementById('contactPopup').classList.remove('hidden');
+        }
+
+        document.getElementById('closeContactPopup').addEventListener('click', function() {
+            document.getElementById('contactPopup').classList.add('hidden');
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchBy = document.getElementById('searchBy');
+            const yearSearch = document.getElementById('yearSearch');
+            const companySearch = document.getElementById('companySearch');
+            const searchForm = document.getElementById('searchForm');
+
+            // Toggle search fields based on selection
+            searchBy.addEventListener('change', function() {
+                if (this.value === 'year') {
+                    yearSearch.classList.remove('hidden');
+                    companySearch.classList.add('hidden');
+                } else {
+                    yearSearch.classList.add('hidden');
+                    companySearch.classList.remove('hidden');
+                }
+            });
+
+            // Fetch production companies
+            fetch('/getProductionCompanyName')
+                .then(response => response.json())
+                .then(companies => {
+                    const select = document.getElementById('productionCompany');
+                    companies.forEach(company => {
+                        const option = document.createElement('option');
+                        option.value = company.Name;
+                        option.textContent = company.Name;
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching production companies:', error));
+
+            // Handle form submission
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const searchData = Object.fromEntries(formData.entries());
+
+                // Construct the query parameters
+                let queryParams = new URLSearchParams();
+                if (searchData.searchBy === 'year') {
+                    queryParams.append('fromYear', searchData.fromYear);
+                    queryParams.append('toYear', searchData.toYear);
+                } else {
+                    queryParams.append('productionCompany', searchData.productionCompany);
+                }
+
+                // Fetch movie results
+                fetch(`/searchMovies?${queryParams.toString()}`)
+                    .then(response => response.json())
+                    .then(movies => {
+                        const tbody = document.getElementById('movieResults');
+                        tbody.innerHTML = ''; // Clear existing results
+                        movies.forEach((movie, index) => {
+                            let Genre;
+                            let GenreType = movie.Genre.split(',');
+                            if (GenreType.length > 1) {
+                                Genre = GenreType.join(' - ');
+                            } else {
+                                Genre = GenreType[0];
+                            }
+                            const row = `
+                                <tr>
+                                    <td class="py-2 px-4 border-b">${index + 1}</td>
+                                    <td class="py-2 px-4 border-b">${movie.Title || 'N/A'}</td>
+                                    <td class="py-2 px-4 border-b">${movie.Year || 'N/A'}</td>
+                                    <td class="py-2 px-4 border-b">${movie.Director || 'N/A'}</td>
+                                    <td class="py-2 px-4 border-b">${Genre || 'N/A'}</td>
+                                    <td class="py-2 px-4 border-b">${movie.Production_Company_Name || 'N/A'}</td>
+                                    <td class="py-2 px-4 border-b">${movie.Length || 'N/A'}</td>
+                                </tr>
+                            `;
+                            tbody.innerHTML += row;
+                        });
+                    })
+                    .catch(error => console.error('Error fetching movie results:', error));
+            });
+
+            // Add sorting functionality
+            const table = document.querySelector('table');
+            const headers = table.querySelectorAll('th');
+            const tbody = table.querySelector('tbody');
+
+            headers.forEach(header => {
+                header.addEventListener('click', () => {
+                    const isAscending = header.classList.contains('sort-asc');
+                    const columnIndex = Array.from(header.parentNode.children).indexOf(header);
+                    const rowsArray = Array.from(tbody.querySelectorAll('tr'));
+
+                    rowsArray.sort((a, b) => {
+                        const aColText = a.querySelector(`td:nth-child(${columnIndex + 1})`).textContent.trim();
+                        const bColText = b.querySelector(`td:nth-child(${columnIndex + 1})`).textContent.trim();
+
+                        if (columnIndex === 0 || columnIndex === 2 || columnIndex === 6) {
+                            // For numeric columns (Sno., Year, Length)
+                            return isAscending 
+                                ? parseFloat(bColText) - parseFloat(aColText)
+                                : parseFloat(aColText) - parseFloat(bColText);
+                        } else {
+                            // For text columns
+                            return isAscending
+                                ? bColText.localeCompare(aColText)
+                                : aColText.localeCompare(bColText);
+                        }
+                    });
+
+                    // Remove existing rows
+                    while (tbody.firstChild) {
+                        tbody.removeChild(tbody.firstChild);
+                    }
+
+                    // Append sorted rows
+                    rowsArray.forEach(row => tbody.appendChild(row));
+
+                    // Update header classes for sorting indication
+                    headers.forEach(h => {
+                        h.classList.remove('sort-asc', 'sort-desc');
+                        h.innerHTML = h.innerHTML.replace(' ▲', '').replace(' ▼', '');
+                    });
+                    
+                    if (!isAscending) {
+                        header.classList.add('sort-asc');
+                        header.innerHTML += ' ▲';
+                    } else {
+                        header.classList.add('sort-desc');
+                        header.innerHTML += ' ▼';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

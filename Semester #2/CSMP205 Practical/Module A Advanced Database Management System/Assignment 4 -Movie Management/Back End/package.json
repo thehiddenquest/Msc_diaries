@@ -1,0 +1,22 @@
+{
+  "name": "movie_management_system",
+  "version": "3.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "keywords": [
+    "Assignment 4"
+  ],
+  "author": "Rahul Biswas, Arijit Mondal",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2",
+    "mysql2": "^3.10.3",
+    "nodemon": "^3.1.4",
+    "path": "^0.12.7"
+  }
+}
