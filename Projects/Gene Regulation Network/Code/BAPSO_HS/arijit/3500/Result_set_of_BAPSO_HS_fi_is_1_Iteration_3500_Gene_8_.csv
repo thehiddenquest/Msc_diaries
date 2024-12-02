@@ -1,0 +1,19 @@
+0,1
+Predicted GRN Matrix ,"[[1 0 0 0 0 0 0 0]
+ [0 1 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0]
+ [0 1 0 0 1 1 0 0]
+ [1 0 0 0 0 0 0 0]]"
+True Positive,2
+False Positive,3
+False Negative,6
+True Negative,38
+Accuracy,0.8163265306122449
+F-score,0.3076923076923077
+TPR,0.25
+FPR,0.07317073170731707
+Specificity,0.926829268292683
+Precision,0.25

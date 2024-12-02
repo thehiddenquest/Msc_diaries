@@ -1,0 +1,2 @@
+Nearnest neighbour interpolation:
+https://www.imageeprocessing.com/2017/11/nearest-neighbor-interpolation.html

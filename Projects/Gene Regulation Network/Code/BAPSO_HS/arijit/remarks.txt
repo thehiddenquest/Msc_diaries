@@ -1,0 +1,11 @@
+1. early convergence 
+2. results are getting bad for higher iteration 
+3. for lower iterations, output is not completely optimized
+4. maybe 4000 is the correct iteration 
+5. 0th gene shows the overfit nature, the final MSE graph or all over output is heavily impacted by that
+
+
+#ideas
+1. same inertia weight 
+2. is this positive to stop specific genes iteration when overfits ?
+        track all the fitness(except initial) values, if value is changes more a certain threshold, stop. (like knee finding)
