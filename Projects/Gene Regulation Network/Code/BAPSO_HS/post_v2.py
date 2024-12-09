@@ -67,75 +67,82 @@ def save_metrics_to_csv(metrics, filename='metrics.csv'):
             writer.writerow([key, value])
 
 # Main execution
-folder_name = 'Output/bapso_with_halfsystem-V4.py_5500_mui/'
+folder_name = 'Output/bapso_with_halfsystem-V6.py_5000/'
 num_files = 10
-file_pattern = folder_name+"resultant_matrix_5500_{}.csv"
+file_pattern = folder_name+"result_matrix_5000_{}.csv"
 eleventh_file = "Dataset/actual_data.csv"
-threshold = 0.8
+thresholds = [0.8,0.9,1]
+avg_matrix = process_csv_files(file_pattern, num_files)
+print(f"Average matrix::\n",avg_matrix)
 
-try:
-    # Process the first 10 CSV files
-    avg_matrix = process_csv_files(file_pattern, num_files)
-    print(avg_matrix)
-    
-    # Apply threshold to the averaged matrix
-    thresholded_matrix = apply_threshold(avg_matrix, threshold)
-    print(thresholded_matrix)
-    
-    # Read the 11th CSV file
-    ground_truth = read_csv_to_matrix(eleventh_file)
-    
-    # Apply the same threshold to the ground truth
- #   thresholded_ground_truth = apply_threshold(ground_truth, threshold)
-    
-    # Check if the matrices have the same shape
-    if thresholded_matrix.shape != ground_truth.shape:
-        print(f"Warning: Shape mismatch. Averaged matrix shape: {thresholded_matrix.shape}, Ground truth matrix shape: {ground_truth.shape}")
-    
-    # Calculate confusion matrix only if shapes match
-    if thresholded_matrix.shape == ground_truth.shape:
-        cm = calculate_confusion_matrix(thresholded_matrix, ground_truth)
-        
-        # Extract TP, TN, FP, FN from confusion matrix
-        tn, fp, fn, tp = cm.ravel()
-        
-        # Print confusion matrix results
-        print(f"True Positives (TP): {tp}")
-        print(f"True Negatives (TN): {tn}")
-        print(f"False Positives (FP): {fp}")
-        print(f"False Negatives (FN): {fn}")
-        
-        # Calculate performance metrics
-        Sn = tp / (tp + fn)  # Sensitivity
-        Sp = tn / (tn + fp)  # Specificity
-        PPV = tp / (tp + fp)  # Positive Predictive Value
-        ACC = (tp + tn) / (tp + tn + fp + fn)  # Accuracy
-        F = 2 * tp / (2*tp+ fp + fn)  # F Score
-        
-        # Store all metrics in a dictionary
-        metrics = {
-            'Sensitivity (Sn)': Sn,
-            'Specificity (Sp)': Sp,
-            'Positive Predictive Value (PPV)': PPV,
-            'Accuracy (ACC)': ACC,
-            'F Score': F
-        }
-        
-        # Print performance metrics
-        for key, value in metrics.items():
-            print(f"{key}: {value:.4f}")
-        
-        # Save performance metrics to a CSV file
-        csv_filename = folder_name+'metrics_threshold_1_'+str(threshold)+".csv"
-        save_metrics_to_csv(metrics, filename=csv_filename)
-        print(f"Metrics have been saved to 'metrics_threshold_{threshold}.csv'")
-        
-        # Plot and save confusion matrix
-        cm_filename = folder_name+'confusion_matrix_threshold_1_'+str(threshold)+'.png'
-        plot_confusion_matrix(cm,cm_filename)
-        print(f"Confusion matrix has been saved as 'confusion_matrix_threshold_{threshold}.png'")
-    else:
-        print("Error: Matrix shapes do not match. Cannot calculate confusion matrix.")
-    
-except Exception as e:
-    print(f"An error occurred: {e}")
+for threshold in thresholds:
+        try:
+            # Process the first 10 CSV files
+
+            
+            # Apply threshold to the averaged matrix
+            thresholded_matrix = apply_threshold(avg_matrix, threshold)
+            print(f"\nThreshold_matrix for {threshold}\n",thresholded_matrix)
+            
+            # Read the 11th CSV file
+            ground_truth = read_csv_to_matrix(eleventh_file)
+            
+            # Apply the same threshold to the ground truth
+        #   thresholded_ground_truth = apply_threshold(ground_truth, threshold)
+            
+            # Check if the matrices have the same shape
+            if thresholded_matrix.shape != ground_truth.shape:
+                print(f"Warning: Shape mismatch. Averaged matrix shape: {thresholded_matrix.shape}, Ground truth matrix shape: {ground_truth.shape}")
+            
+            # Calculate confusion matrix only if shapes match
+            if thresholded_matrix.shape == ground_truth.shape:
+                cm = calculate_confusion_matrix(thresholded_matrix, ground_truth)
+                
+                # Extract TP, TN, FP, FN from confusion matrix
+                tn, fp, fn, tp = cm.ravel()
+                
+                print(f"\n\n\n")
+                # Print confusion matrix results
+                print(f"True Positives (TP): {tp}")
+                print(f"True Negatives (TN): {tn}")
+                print(f"False Positives (FP): {fp}")
+                print(f"False Negatives (FN): {fn}")
+                
+                # Calculate performance metrics
+                Sn = tp / (tp + fn)  # Sensitivity
+                Sp = tn / (tn + fp)  # Specificity
+                PPV = tp / (tp + fp)  # Positive Predictive Value
+                ACC = (tp + tn) / (tp + tn + fp + fn)  # Accuracy
+                F = 2 * tp / (2*tp+ fp + fn)  # F Score
+                
+                # Store all metrics in a dictionary
+                metrics = {
+                    'True Positives (TP)' : tp,
+                    'True Negatives (TN)' :tn,
+                    'False Negatives (FN)': fn,
+                    'False Positives (FP)' : fp,
+                    'Sensitivity (Sn)': Sn,
+                    'Specificity (Sp)': Sp,
+                    'Positive Predictive Value (PPV)': PPV,
+                    'Accuracy (ACC)': ACC,
+                    'F Score': F
+                }
+                
+                # Print performance metrics
+                for key, value in metrics.items():
+                    print(f"{key}: {value:.4f}")
+                
+                # Save performance metrics to a CSV file
+                csv_filename = folder_name+'metrics_threshold_1_'+str(threshold)+".csv"
+                save_metrics_to_csv(metrics, filename=csv_filename)
+                print(f"Metrics have been saved to 'metrics_threshold_{threshold}.csv'")
+                
+                # Plot and save confusion matrix
+                cm_filename = folder_name+'confusion_matrix_threshold_1_'+str(threshold)+'.png'
+                plot_confusion_matrix(cm,cm_filename)
+                print(f"Confusion matrix has been saved as 'confusion_matrix_threshold_{threshold}.png'")
+            else:
+                print("Error: Matrix shapes do not match. Cannot calculate confusion matrix.")
+            
+        except Exception as e:
+            print(f"An error occurred: {e}")
