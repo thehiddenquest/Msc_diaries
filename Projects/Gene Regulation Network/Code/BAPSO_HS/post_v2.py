@@ -67,9 +67,12 @@ def save_metrics_to_csv(metrics, filename='metrics.csv'):
             writer.writerow([key, value])
 
 # Main execution
-folder_name = 'Output/bapso_with_halfsystem-V6.py_5000/'
+dataset_name = "Exp_2.csv"
+iteration = 5000
+folder_name = f'Output/{dataset_name}/bapso_with_halfsystem-V9.py_{iteration}/'
 num_files = 10
-file_pattern = folder_name+"result_matrix_5000_{}.csv"
+result_matrix_name = f"result_matrix_{iteration}"
+file_pattern = folder_name+result_matrix_name+"_{}.csv"
 eleventh_file = "Dataset/actual_data.csv"
 thresholds = [0.8,0.9,1]
 avg_matrix = process_csv_files(file_pattern, num_files)

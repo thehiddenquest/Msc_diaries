@@ -9,9 +9,9 @@ import os
 import random
 
 start_time = time.time()  # Record the start time
-
+dataset_name = "Exp_3.csv"
 #Insert files
-data = read_csv('Dataset/Exp_1.csv')
+data = read_csv(f'Dataset/{dataset_name}')
 dataset = data.to_numpy()[:, 1:]
 
 # Saving result
@@ -34,7 +34,10 @@ fitness_per_gene = np.zeros((num_of_gene,iteration))
 
 
 # Create a new directory with the script's name
-output_folder = "Output/"+script_name+"_"+str(iteration)
+output_folder_dataset = f"Output/{dataset_name}"
+if not os.path.exists(output_folder_dataset):
+        os.makedirs(output_folder_dataset)
+output_folder = output_folder_dataset+"/"+script_name+"_"+str(iteration)
 os.makedirs(output_folder, exist_ok=True)  # Creates the folder if it doesn't exist
 
 
@@ -43,12 +46,13 @@ genes = list(range(num_of_gene))
 combination_of_regulator = combinations(genes, num_of_regulator)
 regulator_combinations = list(combination_of_regulator)
 
-for rep in range(repetition):
 
+
+for rep in range(repetition):
                 result_matrix = np.zeros((num_of_gene,num_of_gene))                                             # For 10 iteration  
                 best_combination = np.zeros((num_of_gene,num_of_regulator), dtype=int)
                 for gene in range(num_of_gene):
-                                np.random.seed(42+num_of_gene)                                                  # For 8 gene
+                                np.random.seed(29+num_of_gene)                                                  # For 8 gene
                                 global_best_position = np.zeros((num_of_population,num_of_gene-1))
                                 position = np.zeros((num_of_population,num_of_regulator+3))     
                         # Initialization of particle properties
@@ -128,22 +132,25 @@ for rep in range(repetition):
                                                 
                                                 velocity = w * velocity + c1 * r1 * (local_best_position - position) + c2 * r2 * (global_best_position_matrix - position)
                                                 
-                                               
+                                                
                                                 
                                                 # Update the position of each particle
                                                 
                                                 position = position + velocity
                                                 
                                                 # Boolean mask identifying invalid positions
+                                                invalid_velocity_mask = (np.any(np.abs(velocity)>= 1, axis = 1) )
+                                                velocity[invalid_velocity_mask,:] = np.zeros((invalid_velocity_mask.sum(),num_of_gene-1))
                                                 
                                                 invalid_mask = (
-                                                                np.any(np.abs(position[:, :4]) >= 1, axis=1) |  # First four dimensions condition
-                                                                np.any(position[:, 4:] <= 0, axis=1)|
-                                                                np.any(np.abs(velocity)>= 1, axis = 1)
-                                                                )
-                                                position[invalid_mask, :4] = np.random.uniform(-1, 1, (invalid_mask.sum(), 4))
-                                                position[invalid_mask, 4:] = np.random.uniform(0, 1, (invalid_mask.sum(), 3))
-                                                velocity[invalid_mask,:] = np.zeros((invalid_mask.sum(),num_of_gene-1))
+                                                                np.any(np.abs(position) >= 1, axis=1) |  # First four dimensions condition
+                                                                np.any(position[:, 4:] <= 0, axis=1)
+                                                        )
+                                                # position[invalid_mask, :4] = np.random.uniform(-1, 1, (invalid_mask.sum(), 4))
+                                                # position[invalid_mask, 4:] = np.random.uniform(0, 1, (invalid_mask.sum(), 3))
+                                                position[invalid_mask, :4] = [[random.uniform(-1,1) for _ in range(4)] for _ in range(invalid_mask.sum())]
+                                                position[invalid_mask, 4:] = [[random.uniform(0,1) for _ in range(3)] for _ in range(invalid_mask.sum())]
+                                        
 
                                         # Calculating fitness
                                         
@@ -181,10 +188,10 @@ for rep in range(repetition):
                                                                                 local_best_position[i,:] = position[i,:]  # Update the corresponding row
                                                 min_fitness = np.min(fitness)
                                                 if best_fitness > min_fitness:
-                                                                        best_fitness = min_fitness
-                                                                        global_best_position = local_best_position[np.argmin(fitness)].copy()
-                                                                        best_combination[gene,:] = np.array(regulator_combinations[np.argmin(fitness)]).copy()
-                                                                        print(f"Gene {gene} Global Best particle : {global_best_position} Index : {np.argmin(fitness)} Best fitness : {best_fitness} fitness at {np.argmin(fitness)} is {np.min(fitness)} where combination is {best_combination[gene,:]}")
+                                                        best_fitness = min_fitness
+                                                        global_best_position = local_best_position[np.argmin(fitness)].copy()
+                                                        best_combination[gene,:] = np.array(regulator_combinations[np.argmin(fitness)]).copy()
+                                                        print(f"Gene {gene} Global Best particle : {global_best_position} Index : {np.argmin(fitness)} Best fitness : {best_fitness} fitness at {np.argmin(fitness)} is {np.min(fitness)} where combination is {best_combination[gene,:]}")
                                                 fitness_per_gene[gene,itr] = best_fitness.copy()
                                 result_matrix[gene,best_combination[gene,:]] = global_best_position[:4]
                 print(result_matrix)

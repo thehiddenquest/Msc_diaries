@@ -1,2 +1,4 @@
 Nearnest neighbour interpolation:
 https://www.imageeprocessing.com/2017/11/nearest-neighbor-interpolation.html
+Affine transformation:
+https://www.algorithm-archive.org/contents/affine_transformations/affine_transformations.html

@@ -1,0 +1,10 @@
+Metric,Value
+True Positives (TP),0
+True Negatives (TN),51
+False Negatives (FN),9
+False Positives (FP),4
+Sensitivity (Sn),0.0
+Specificity (Sp),0.9272727272727272
+Positive Predictive Value (PPV),0.0
+Accuracy (ACC),0.796875
+F Score,0.0
