@@ -1,0 +1,4 @@
+Sequence modeling:
+https://www.moveworks.com/us/en/resources/ai-terms-glossary/sequence-modeling
+Transduction problem:
+https://en.wikipedia.org/wiki/Transduction_(machine_learning)
