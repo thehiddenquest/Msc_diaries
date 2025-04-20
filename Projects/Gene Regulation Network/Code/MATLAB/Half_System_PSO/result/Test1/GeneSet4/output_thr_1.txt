@@ -1,0 +1,22 @@
+Confusion Matrix:[1]
+True Positive (TP): 0
+False Positive (FP): 5
+False Negative (FN): 9
+True Negative (TN): 50
+Accuracy: 0.78125
+Precision: 0
+Recall: 0
+F-Score: NaN
+----------------------------------
+Elapsed time is 676.490372 seconds.
+Confusion Matrix:[1]
+True Positive (TP): 0
+False Positive (FP): 5
+False Negative (FN): 9
+True Negative (TN): 50
+Accuracy: 0.78125
+Precision: 0
+Recall: 0
+F-Score: NaN
+----------------------------------
+Elapsed time is 668.088429 seconds.

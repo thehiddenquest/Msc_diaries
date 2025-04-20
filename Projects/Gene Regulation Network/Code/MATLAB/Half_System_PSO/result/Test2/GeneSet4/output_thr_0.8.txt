@@ -1,0 +1,11 @@
+Confusion Matrix:[0.8]
+True Positive (TP): 6
+False Positive (FP): 14
+False Negative (FN): 3
+True Negative (TN): 41
+Accuracy: 0.73438
+Precision: 0.3
+Recall: 0.66667
+F-Score: 0.41379
+----------------------------------
+Elapsed time is 532.663782 seconds.

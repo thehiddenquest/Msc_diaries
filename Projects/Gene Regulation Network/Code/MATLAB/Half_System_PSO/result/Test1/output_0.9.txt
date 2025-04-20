@@ -1,0 +1,7 @@
+Threshold: 0.9
+TP: 0, FP: 2, FN: 9, TN: 53
+Accuracy: 0.82812
+Precision: 0
+Recall: 0
+F-Score: NaN
+-----------------------------
