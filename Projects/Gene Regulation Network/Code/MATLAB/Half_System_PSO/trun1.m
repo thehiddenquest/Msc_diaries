@@ -1,5 +1,5 @@
 mainfolder = 'F:\Masters in Computer and Information Science\CSMC\Projects\Gene Regulation Network\Code\MATLAB\Half_System_PSO\result\';
-testname = 'Test5\';
+testname = 'Test6\';
 Geneset = {'GeneSet1\', 'GeneSet2\', 'GeneSet3\', 'GeneSet4\'};
 n=8;
 outputfolder = fullfile(mainfolder,testname);

@@ -4,7 +4,7 @@ rng("default");
 tic
 
 folder = 'F:\Masters in Computer and Information Science\CSMC\Projects\Gene Regulation Network\Code\MATLAB\Half_System_PSO\result\';
-test = 'Test00';
+test = 'Test6';
 Geneset = 'GeneSet1';
 mkdir(fullfile(folder,test,Geneset));
 mainfolder = fullfile(folder,test,Geneset);

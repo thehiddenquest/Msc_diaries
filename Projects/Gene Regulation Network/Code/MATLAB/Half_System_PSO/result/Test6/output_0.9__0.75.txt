@@ -1,0 +1,7 @@
+Threshold: 0.75
+TP: 6, FP: 9, FN: 3, TN: 46
+Accuracy: 0.8125
+Precision: 0.4
+Recall: 0.66667
+F-Score: 0.5
+-----------------------------
