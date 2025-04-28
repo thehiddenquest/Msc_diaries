@@ -4,7 +4,7 @@ rng("default");
 tic
 
 folder = 'F:\Masters in Computer and Information Science\CSMC\Projects\Gene Regulation Network\Code\MATLAB\Half_System_PSO\result\';
-test = 'Test6';
+test = 'Test9';
 Geneset = 'GeneSet4';
 mkdir(fullfile(folder,test,Geneset));
 mainfolder = fullfile(folder,test,Geneset);
@@ -110,7 +110,7 @@ for cur = 1:max_repetition
             % Half System :: 
              for j = 1:tp
                  var1 = 1;
-                 for k = 1:reg 
+                 for k = 1:reg
                     if(gene_et(j,pop(i,k))>0)
                         var1 = var1 * (gene_et(j,pop(i,k)) .^ weight(1, k));
                     else
@@ -123,7 +123,7 @@ for cur = 1:max_repetition
                      di = gene_et(j-1,cur_gene)-next_tp(j-1,cur_gene,i);
                  end
 
-                 next_tp(j,cur_gene,i) = dt*delta_i*var1 + (1-dt*alpha)*gene_et(j,cur_gene)+sqrt(mui)*di;
+                 next_tp(j,cur_gene,i) = dt*delta_i*var1 + (1-dt*alpha)*gene_et(j,cur_gene)+di;
              end
             diff = 0;
             for j = 1:tp
@@ -183,7 +183,7 @@ for cur = 1:max_repetition
                          di = gene_et(j-1,cur_gene)-next_tp(j-1,cur_gene,i);
                     end
 
-                    next_tp(j,cur_gene,i) = dt*delta_i*var1 + (1-dt*alpha)*gene_et(j,cur_gene)+sqrt(mui)*di;
+                    next_tp(j,cur_gene,i) = dt*delta_i*var1 + (1-dt*alpha)*gene_et(j,cur_gene)+di;
                  end
                 diff = 0;
                 for j = 1:tp
