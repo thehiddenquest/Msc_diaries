@@ -1,0 +1,28 @@
+Test 2:
+Number of gene: 8
+Population size : 70
+Dimension of population: 7
+Test describtion :
+1. Removes the condition in half system to gene value less than or equal to  02. Removes l1 normalization in fitness check3. Removes normalization in noise4. New time point expression prediction equation.
+----------------------------------
+Test 2:
+Number of gene: 8
+Population size : 70
+Dimension of population: 7
+Test describtion :
+1. Removes the condition in half system to gene value less than or equal to  02. Removes l1 normalization in fitness check3. Removes normalization in noise4. New time point expression prediction equation.
+----------------------------------
+Test 2:
+Number of gene: 8
+Population size : 70
+Dimension of population: 7
+Test describtion :
+1. Removes the condition in half system to gene value less than or equal to  02. Removes l1 normalization in fitness check3. Removes normalization in noise4. New time point expression prediction equation.
+----------------------------------
+Test 2:
+Number of gene: 8
+Population size : 70
+Dimension of population: 7
+Test describtion :
+1. Removes the condition in half system to gene value less than or equal to  02. Removes l1 normalization in fitness check3. Removes normalization in noise4. New time point expression prediction equation.
+----------------------------------

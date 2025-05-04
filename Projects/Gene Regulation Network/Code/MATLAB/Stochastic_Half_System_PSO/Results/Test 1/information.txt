@@ -1,0 +1,7 @@
+Test 1:
+Number of gene: 8
+Population size : 70
+Dimension of population: 7
+Test describtion :
+1. In Half system if gene expression value is 0 then multiply with 99999.2. Multiply noise strength with dt(time difference).3. First 4 dimensions are clipped and others are randomly initialized.
+----------------------------------

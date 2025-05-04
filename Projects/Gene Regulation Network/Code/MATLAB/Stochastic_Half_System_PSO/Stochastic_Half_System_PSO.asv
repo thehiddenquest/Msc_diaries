@@ -1,0 +1,311 @@
+clc         % Clear console
+clearvars   % Clear variable
+tic         % Start recording time
+%% Basic Information 
+
+folder  = 'F:\Masters in Computer and Information Science\CSMC\Projects\Gene Regulation Network\Code\MATLAB\Stochastic_Half_System_PSO\Results';
+test_number = 'Test 2';  
+gene_set_number = 'GeneSet1';   % GeneSet1 || GeneSet2 || GeneSet3 || GeneSet4
+mkdir(fullfile(folder,test_number,gene_set_number));
+main_folder = fullfile(folder,test_number,gene_set_number);
+
+%% Gene Dataset
+
+gn_st = [
+0.1123538576	0.3417597249	0.0000000000	0.7850888425	0.5794536820	0.0419270753	0.0000000000	0.0201738285
+0.1581415616	0.7989619644	0.0000000000	0.8988809887	0.6513187528	0.0112248203	0.0000000000	0.0247408767
+0.1242658173	1.0000000000	0.0326140605	0.9734252093	0.6740768733	0.0000000000	0.0138553845	0.0266164358
+0.0666425024	0.8889433015	0.0657517660	0.9286069038	0.6522357096	0.0000000000	0.0296765586	0.0332803776
+0.0479031064	0.7491763582	0.0700411821	0.8546927539	0.5830366784	0.0000000000	0.0277863467	0.0282058796
+0.0388515285	0.5510488325	0.0731051609	0.7652713082	0.4829641855	0.0298963507	0.0171036802	0.0263110405
+0.0426867076	0.3929643397	0.0826078909	0.6624363759	0.3894206744	0.0254033378	0.0076641885	0.0162129438
+0.0446378443	0.3032459821	0.0725876855	0.5419964836	0.2646219576	0.0184771879	0.0000000000	0.0089960515
+0.0542477713	0.2288706543	0.0722660950	0.4394831416	0.1630001234	0.0112425579	0.0000000000	0.0091279267
+0.0550197427	0.2032459821	0.0658874973	0.3670666626	0.1129291730	0.0054331061	0.0000000000	0.0129708178
+0.0421661474	0.1706265232	0.0567811642	0.3184833575	0.1073287164	0.0042215504	0.0000000000	0.0161042046
+0.0410756702	0.1768639912	0.0401533146	0.2936877256	0.0956835920	0.0109680106	0.0063199864	0.0188620168
+0.0417018848	0.1561981368	0.0326256285	0.2622227535	0.0960745905	0.0133787827	0.0026398186	0.0238894716
+0.0539400623	0.1192722954	0.0218542740	0.2288961039	0.1051863220	0.0121903631	0.0016627078	0.0146898232
+0.0506131043	0.1355384521	0.0142432983	0.2185928680	0.1063184440	0.0072354012	0.0059205047	0.0095304933
+0.0455787087	0.1328076318	0.0224110806	0.2150368634	0.0975198198	0.0026760650	0.0000000000	0.0130641330
+0.0339089058	0.1053444181	0.0265485702	0.1825531357	0.0858045162	0.0000000000	0.0000000000	0.0136903477
+0.0231529753	0.0999683808	0.0158119197	0.1776436747	0.0764637382	0.0000000000	0.0010310948	0.0109117130
+0.0212781874	0.1105561897	0.0168152513	0.2000030848	0.0711632785	0.0000000000	0.0001565537	0.0162646142
+0.0185427399	0.0972537557	0.0137366197	0.1831045439	0.0664435327	0.0058341302	0.0013789061	0.0189406793
+0.0269889256	0.0851189191	0.0069469723	0.1730295833	0.0666232224	0.0129384274	0.0002143937	0.0166864608
+0.0270722152	0.0763619397	0.0091603171	0.1717277972	0.0620422926	0.0101890983	0.0076001789	0.0208910448
+0.0217185427	0.0843909060	0.0150738810	0.1787356943	0.0498835488	0.0084662369	0.0092127587	0.0217702132
+0.0147638585	0.0871749391	0.0244910078	0.1699825709	0.0374942160	0.0087824290	0.0079063454	0.0233912762
+0.0103726440	0.0844996453	0.0266403430	0.1483496314	0.0400152698	0.0089328130	0.0067549434	0.0220362773
+0.0089104482	0.0784634605	0.0307223062	0.1438951785	0.0396474072	0.0044089521	0.0066300089	0.0224110806
+0.0061094487	0.0757071907	0.0282035660	0.1452170158	0.0440525033	0.0063462072	0.0000000000	0.0202501774
+0.0083112256	0.0760804516	0.0182172934	0.1173697443	0.0486141531	0.0096076133	0.0000000000	0.0172571490
+0.0133733843	0.0656491964	0.0158620477	0.1150970170	0.0461116081	0.0094155844	0.0023729833	0.0135353364
+0.0233650554	0.0415561280	0.0136124564	0.1217100596	0.0362502699	0.0056775766	0.0017244039	0.0122636271
+0.0205933615	0.0470162260	0.0128451121	0.1211100657	0.0312536632	0.0050382515	0.0000000000	0.0119181294
+0.0324829565	0.0619042478	0.0147492057	0.1077112318	0.0357412777	0.0057801462	0.0000000000	0.0123677391
+0.0401733658	0.0572053244	0.0177923620	0.1055102261	0.0322307740	0.0089582626	0.0000000000	0.0164651263
+0.0361214795	0.0581137983	0.0176172996	0.1202409230	0.0289277231	0.0069639387	0.0000000000	0.0138978005
+0.0320695931	0.0784935374	0.0189368233	0.1307045686	0.0328168862	0.0085664929	0.0022156585	0.0133433075
+0.0310955671	0.0762956165	0.0184687047	0.1245704414	0.0342975908	0.0066115001	0.0013603973	0.0117137613
+0.0190579017	0.0736442299	0.0157779869	0.1130132338	0.0283007373	0.0016172070	0.0046364562	0.0126970417
+0.0124140112	0.0609680106	0.0117623469	0.0784835117	0.0263465157	0.0000000000	0.0072161212	0.0093693124
+0.0109826634	0.0543865873	0.0070186939	0.0609402474	0.0313207576	0.0000000000	0.0030925132	0.0097279205
+0.0094109572	0.0522758121	0.0032984237	0.0477234167	0.0366451245	0.0000000000	0.0000000000	0.0095058149
+0.0085071105	0.0478360120	0.0037842799	0.0264544838	0.0397669433	0.0000000000	0.0000000000	0.0026051146
+0.0103225160	0.0474203350	0.0097441157	0.0393851991	0.0405435420	0.0000000000	0.0000000000	0.0006146466
+0.0095235525	0.0424013635	0.0077135454	0.0634890644	0.0437255144	0.0000000000	0.0000000000	0.0001426721
+0.0117052781	0.0331631551	0.0081060863	0.0810161335	0.0415491872	0.0000000000	0.0000000000	0.0008066755
+0.0176851652	0.0317634266	0.0106726409	0.0798762995	0.0358168554	0.0000000000	0.0000285344	0.0000000000
+0.0233372922	0.0437733288	0.0085425857	0.0901232378	0.0359140266	0.0000925440	0.0029776043	0.0024084585
+0.0304022581	0.0414766943	0.0083752352	0.0910347966	0.0389479286	0.0022696425	0.0101127495	0.0018963815
+0.0308927415	0.0409677021	0.0098358886	0.0783123053	0.0373083567	0.0023274825	0.0076263997	0.0013349477
+0.0301732116	0.0561109911	0.0108554154	0.0650800506	0.0314603449	0.0000000000	0.0063130456	0.0000000000
+];
+
+%% Global Variable Declaration
+
+[tp,n] = size(gn_st);                   % Return column(timepoint) and row(number of gene) 
+tp = tp - 1;                            % Predict the tp except the first one
+reg = 4;                                % Number of regulator : 4
+dt = 6;                                 % TimeStamp distance : 6 unit
+combination = 1:n;                      % Create combinaton of n gene : 8 gene
+pop = nchoosek(combination,reg);        % Create population of 1:8 * 4
+[pop_size,~] = size(pop);               % Population_size: 70
+dim = reg + 3;                          % Dimension of particle ( 4 + alpha, delta_i, noise1)
+lb = -1* ones(1, reg);                  % Lower bound of first 4 is -1
+ub = 1*ones(1,reg);                     % Upper bound of first 4 is 1
+lb(1, reg+1:dim) = 0;                   % All other lower bound is 0
+ub(1, reg+1:dim) = 1;                   % All other upper bound is 1
+max_iter = 5000;                        % Maximum iteration 5000 times
+max_repetition = 10;                    % Repeat 10 times
+next_tp = zeros(tp, n, pop_size);       % To store population size of timepoint
+result_matrix = zeros(n,n,max_repetition); % To store result
+all_global_best_fitness = zeros(max_repetition,n); % To store all best fitness
+position = zeros(n,dim,pop_size);       % Position matrix
+velocity = zeros(n,dim,pop_size);       % Velocity matrix
+gaussian_white_noise = zeros(tp,1);     % To store gaussian_white_noise
+
+%% Calculation
+
+for cur = 1:max_repetition
+    disp("Current repetition: "+ cur);
+    gbest = zeros(n,dim);                                % Global best position
+    lbest = zeros(n,dim,pop_size);                       % Local best position 
+    regulator_combination = zeros(n,reg);                % Best regulator combination
+    Fitness = zeros(n,pop_size);                         % Fitness of population
+    gaussian_white_noise(3:6,1) = randn(1,4);            % Noise in 3 to 6 time point, Standard normal
+% For Test 1    temp = max(abs(gaussian_white_noise));               % Normalization of noise
+% For Test 1    gaussian_white_noise = gaussian_white_noise/temp;
+        
+    for cur_gene = 1:n
+        disp("Current gene : "+cur_gene);
+        for i = 1:pop_size
+            % Intialize position and velocity from a range for PSO
+            position(cur_gene,:,i) =  lb + rand(1, dim) .* (ub - lb);      
+            velocity(cur_gene,:,i) =  lb + rand(1, dim) .* (ub - lb); 
+        end % End of population(Intialization)
+        
+        
+        
+        
+        %% Initial Half System ::
+        for i = 1:pop_size
+            % Separation of position vector
+            weight(1,:) = position(cur_gene,1:reg,i);  
+            delta_i = position(cur_gene,reg+1,i);
+            alpha = position(cur_gene,reg+2,i);
+            noise_strength = position(cur_gene,reg+3,i);
+            dt = 6 * noise_strength;
+
+            for j = 1:tp
+                prod = 1;
+                for k = 1:reg
+                     prod = prod * (gn_st(j,pop(i,k)) .^ weight(1, k)); % For Test 2
+% Test 1                    % if(gn_st(j , pop(i,k) ) >0)
+                    %     prod = prod * (gn_st(j,pop(i,k)) .^ weight(1, k));
+                    % else
+                    %     prod = prod * 99999;               % If gn_st == 0 then multiply with 99999
+                    % end % End of Gene value check
+                end % End of Each regulator
+% For Test 1                next_tp(j,cur_gene,i) = dt*delta_i*prod + (1-alpha*dt)*gn_st(j,cur_gene) + (sqrt(dt*gn_st(j,cur_gene)))*gaussian_white_noise(j,1);
+                next_tp(j, cur_gene, i) = dt*delta_i* prod + (1 - alpha*dt)*gn_st(j,cur_gene) + dt*(sqrt(alpha*gn_st(j,cur_gene)))*gaussian_white_noise(j,1); % For Test 2
+            end % End of Each time point ( Next Gene Expression Calculation) 
+            diff = 0;
+            for j  = 1 :tp
+                diff = diff + (next_tp(j, cur_gene, i) - gn_st(j+1, cur_gene))^2;
+            end % End of Each time point ( Difference calculation)
+            Fitness(cur_gene,i) = (diff / tp);
+% For Test 1            Fitness(cur_gene,i) = (diff / tp) + (alpha+delta_i)*sum(abs(weight));   % L1 Regularization
+        end %% End of population(Half System)
+        
+        % End of Half System 
+        [best_fitness,min_index] = min(Fitness(cur_gene,:));
+        lbest(cur_gene,:,:) = position(cur_gene,:,:);
+        gbest(cur_gene,:) = position(cur_gene,:,min_index);
+        regulator_combination(cur_gene,:) = pop(min_index,:);
+
+
+         %% Update position and velocity ( PSO ) 
+         c = 2;
+         inertia_max = 0.9;
+         inertia_min = 0.1;
+         for iter = 1:max_iter
+             inertia = inertia_max - iter*(inertia_max-inertia_min)/max_iter;
+             for i = 1:pop_size
+                velocity(cur_gene,:,i) = inertia.*velocity(cur_gene,:,i)+c*rand().*(lbest(cur_gene,:,i)-position(cur_gene,:,i))+c*rand().*(gbest(cur_gene,:)-position(cur_gene,:,i));
+                position(cur_gene,:,i) = position(cur_gene,:,i)+velocity(cur_gene,:,i);
+             end % End of population (Update position and velocity)
+
+             for i = 1:pop_size
+                flag_ub = position(cur_gene,:,i) > ub;
+                flag_lb = position(cur_gene,:,i) < lb;
+                position(cur_gene,reg+1:dim,i) = ((~(flag_ub(reg+1:dim) | flag_lb(reg+1:dim))).*position(cur_gene,reg+1:dim,i)) + ((lb(reg+1:dim) + rand(1, dim-reg) .* (ub(reg+1:dim) - lb(reg+1:dim))).*(flag_ub(reg+1:dim) | flag_lb(reg+1:dim)));
+                position(cur_gene,1:reg,i) = ((~(flag_ub(1:reg) | flag_lb(1:reg))).*position(cur_gene,1:reg,i)) + (ub(1:reg).*flag_ub(1:reg) + lb(1:reg).*flag_lb(1:reg));
+                flag_ub = velocity(cur_gene,:,i) > ub;
+                flag_lb = velocity(cur_gene,:,i) < lb;
+                velocity(cur_gene,reg+1:dim,i) = ((~(flag_ub(reg+1:dim) | flag_lb(reg+1:dim))).*velocity(cur_gene,reg+1:dim,i)) + ((lb(reg+1:dim) + rand(1, dim-reg) .* (ub(reg+1:dim) - lb(reg+1:dim))).*(flag_ub(reg+1:dim) | flag_lb(reg+1:dim)));
+                velocity(cur_gene,1:reg,i) = ((~(flag_ub(1:reg) | flag_lb(1:reg))).*velocity(cur_gene,1:reg,i)) + (ub(1:reg).*flag_ub(1:reg) + lb(1:reg).*flag_lb(1:reg));
+             end % End of population (Reinitialization)
+             
+            %% Updation Half System ::
+            for i = 1:pop_size
+                % Separation of position vector
+                weight(1,:) = position(cur_gene,1:reg,i);  
+                delta_i = position(cur_gene,reg+1,i);
+                alpha = position(cur_gene,reg+2,i);
+                noise_strength = position(cur_gene,reg+3,i);
+                dt = 6 * noise_strength;
+    
+                for j = 1:tp
+                    prod = 1;
+                    for k = 1:reg
+                        prod = prod * (gn_st(j,pop(i,k)) .^ weight(1, k));
+% For Test 1                        % if(gn_st(j , pop(i,k) ) >0)
+                        %     prod = prod * (gn_st(j,pop(i,k)) .^ weight(1, k));
+                        % else
+                        %     prod = prod * 99999;               % If gn_st == 0 then multiply with 99999
+                        % end % End of Gene value check
+                    end % End of Each regulator
+                    next_tp(j, cur_gene, i) = dt*delta_i* prod + (1 - alpha*dt)*gn_st(j,cur_gene) + dt*(sqrt(alpha*gn_st(j,cur_gene)))*gaussian_white_noise(j,1); % For Test 2
+% For Test 1                    next_tp(j,cur_gene,i) = dt*delta_i*prod + (1-alpha*dt)*gn_st(j,cur_gene) + (sqrt(dt*gn_st(j,cur_gene)))*gaussian_white_noise(j,1);
+                end % End of Each time point ( Next Gene Expression Calculation) 
+                diff = 0;
+                for j  = 1 :tp
+                    diff = diff + (next_tp(j, cur_gene, i) - gn_st(j+1, cur_gene))^2;
+                end % End of Each time point ( Difference calculation)
+                
+ % For Test 1               % if(Fitness(cur_gene,i) >= (diff / tp) + (alpha+delta_i)*sum(abs(weight)))
+                %     Fitness(cur_gene,i) = (diff / tp) + (alpha+delta_i)*sum(abs(weight)); % Update fitness 
+                %     lbest(cur_gene,:, i) = position(cur_gene, :, i);                      % Update local best position
+                % end % If change in fitness occurs 
+                
+                % For Test 2
+                 if(Fitness(cur_gene,i) >= (diff / tp) )
+                     Fitness(cur_gene,i) = (diff / tp) ; % Update fitness 
+                     lbest(cur_gene,:, i) = position(cur_gene, :, i);                      % Update local best position
+                 end % If change in fitness occurs 
+            end %% End of population(Half System)
+            if (best_fitness >= min(Fitness(cur_gene,:)))
+                [best_fitness, min_index] = min(Fitness(cur_gene,:));
+                gbest(cur_gene, :) = lbest(cur_gene, :, min_index);
+                regulator_combination(cur_gene,:) = pop(min_index,:);
+            end % If change in best fitness occurs
+         end % End of Iteration
+         all_global_best_fitness(cur,cur_gene) = best_fitness;
+         
+         for i = 1:reg %% Creating regulator matrix
+            index = regulator_combination(cur_gene,i);
+            if(index > 0)
+                result_matrix(cur_gene,index,cur) = gbest(cur_gene,i);
+            end
+         end % End of regulator matrix
+  
+    end % End of gene
+
+end % End of repetition
+
+
+%% Information Login
+information_file_name = 'information.txt';
+result_folder =  fullfile(folder,test_number);
+diary(fullfile(result_folder,information_file_name));  % Start saving output to a file
+diary on;
+disp([test_number,':']);
+disp(['Number of gene: ', num2str(n)]);
+disp(['Population size : ',num2str(pop_size)]);
+disp(['Dimension of population: ',num2str(dim)]);
+test_describtion = "1. Removes the condition in half system to gene value less than or equal to  0" + ...
+                    "2. Removes l1 normalization in fitness check" + ...
+                    "3. Removes normalization in noise";
+disp('Test describtion :')
+disp(test_describtion);
+disp('----------------------------------');
+diary off;
+
+%% Result Saving and performance evaluation
+final_Matrix = zeros(n,n,1);
+final_Matrix_1 = zeros(n,n,10);
+for result_set = 1:10
+    final_Matrix_1(:,:,result_set) = (abs(result_matrix(:,:,result_set)) > 0);
+    final_Matrix(:,:,1) = final_Matrix(:,:,1)+final_Matrix_1(:,:,result_set);
+end
+
+actual_network = [  
+0	1	0	0	0	0	0	0
+0	1	0	1	0	0	0	0
+0	1	0	0	0	0	0	0
+0	1	0	0	0	0	0	0
+0	1	0	0	0	0	0	0
+0	1	0	0	0	0	0	0
+0	1	0	0	0	0	0	0
+0	1	0	0	0	0	0	0
+
+];
+     
+final_Matrix(:,:,1) = final_Matrix / 10;
+
+
+for threshold = [0.8, 0.9, 1]
+    output_file = ['output_thr_', num2str(threshold), '.txt'];
+    diary(fullfile(main_folder,output_file));  % Start saving output to a file
+    diary on;
+    final_Matrix_2 = final_Matrix(:,:,1);
+    final_Matrix_3 = final_Matrix_2 >= threshold;
+    %disp(final_Matrix_3);
+    TP = sum(sum((final_Matrix_3 == 1) & (actual_network == 1)));
+    FP = sum(sum((final_Matrix_3 == 1) & (actual_network == 0)));
+    FN = sum(sum((final_Matrix_3 == 0) & (actual_network == 1)));
+    TN = sum(sum((final_Matrix_3 == 0) & (actual_network == 0)));
+    
+    accuracy = (TP + TN) ./ (TP + FP + FN + TN);
+    precision = TP ./ (TP + FP);
+    recall = TP ./ (TP + FN);
+    f_score = 2 .* (precision .* recall) ./ (precision + recall);
+    disp(['Confusion Matrix:[', num2str(threshold),']']);
+    disp(['True Positive (TP): ', num2str(TP)]);
+    disp(['False Positive (FP): ', num2str(FP)]);
+    disp(['False Negative (FN): ', num2str(FN)]);
+    disp(['True Negative (TN): ', num2str(TN)]);
+
+    disp(['Accuracy: ', num2str(accuracy)]);
+    disp(['Precision: ', num2str(precision)]);
+    disp(['Recall: ', num2str(recall)]);
+    disp(['F-Score: ', num2str(f_score)]);
+    disp('----------------------------------');
+
+    toc
+    diary off;
+    filename_obj = ['final_Matrix_',num2str(threshold),'.mat'];
+    save(fullfile(main_folder, filename_obj), 'final_Matrix_3');
+    
+end
+for run = 1:10
+    sum_se = 0;
+    for gn = 1:n
+        sum_se = sum_se+all_global_best_fitness(run,gn);
+    end
+    MSE = sum_se/n;
+    disp(['RUN : ', num2str(run),'| MSE : ',num2str(MSE)]);
+        
+end
